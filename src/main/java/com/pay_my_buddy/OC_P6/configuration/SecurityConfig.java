@@ -10,7 +10,9 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.pay_my_buddy.OC_P6.filter.JwtFilter;
 import com.pay_my_buddy.OC_P6.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -20,32 +22,35 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final UserService userService;
+        private final UserService userService;
+        private final JwtUtils jwtUtils;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 
-    @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder)
-            throws Exception {
+        @Bean
+        public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder)
+                        throws Exception {
 
-        AuthenticationManagerBuilder authenticationManagerBuilder = http
-                .getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(passwordEncoder);
+                AuthenticationManagerBuilder authenticationManagerBuilder = http
+                                .getSharedObject(AuthenticationManagerBuilder.class);
+                authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(passwordEncoder);
 
-        return authenticationManagerBuilder.build();
-    }
+                return authenticationManagerBuilder.build();
+        }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        return http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/api/**", "/error").permitAll()
-                        .anyRequest().authenticated())
-                .build();
+                return http.csrf(AbstractHttpConfigurer::disable)
+                                .authorizeHttpRequests(auth -> auth.requestMatchers("/api/**", "/error").permitAll()
+                                                .anyRequest().authenticated())
+                                .addFilterBefore(new JwtFilter(userService, jwtUtils),
+                                                UsernamePasswordAuthenticationFilter.class)
+                                .build();
 
-    }
+        }
 
 }
