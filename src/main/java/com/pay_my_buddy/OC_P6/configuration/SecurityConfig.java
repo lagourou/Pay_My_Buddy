@@ -10,10 +10,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import com.pay_my_buddy.OC_P6.filter.JwtFilter;
-import com.pay_my_buddy.OC_P6.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,8 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-        private final UserService userService;
-        private final JwtUtils jwtUtils;
+        private final CustomUserDetailsService customUserDetailsService;
 
         @Bean
         public PasswordEncoder passwordEncoder() {
@@ -36,7 +31,8 @@ public class SecurityConfig {
 
                 AuthenticationManagerBuilder authenticationManagerBuilder = http
                                 .getSharedObject(AuthenticationManagerBuilder.class);
-                authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(passwordEncoder);
+                authenticationManagerBuilder.userDetailsService(customUserDetailsService)
+                                .passwordEncoder(passwordEncoder);
 
                 return authenticationManagerBuilder.build();
         }
@@ -45,10 +41,12 @@ public class SecurityConfig {
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
                 return http.csrf(AbstractHttpConfigurer::disable)
-                                .authorizeHttpRequests(auth -> auth.requestMatchers("/api/**", "/error").permitAll()
-                                                .anyRequest().authenticated())
-                                .addFilterBefore(new JwtFilter(userService, jwtUtils),
-                                                UsernamePasswordAuthenticationFilter.class)
+                                .authorizeHttpRequests(
+                                                auth -> auth.requestMatchers("/", "/login", "/register").permitAll()
+                                                                .requestMatchers("/css/**", "/js/**, /images/**")
+                                                                .permitAll()
+                                                                .anyRequest().authenticated())
+                                .formLogin(form -> form.loginPage("/login").permitAll())
                                 .build();
 
         }
