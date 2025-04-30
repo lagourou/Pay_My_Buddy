@@ -128,3 +128,106 @@ body {
 .separator {
   color: #999;
 }
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 40px;
+  border-bottom: 1px solid #ddd;
+}
+.heading span {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.heading nav a {
+  margin-left: 30px;
+  text-decoration: none;
+  color: #000;
+  font-size: 14px;
+}
+
+.heading nav a.active {
+  color: #0d6efd;
+  font-weight: bold;
+}
+.tank {
+  max-width: 600px;
+  margin: 100px auto 0 auto;
+  text-align: center;
+}
+.tank h2 {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 25px;
+}
+.relation-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.relation-form input[type="email"] {
+  padding: 10px 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  width: 300px;
+  outline: none;
+}
+.relation-form button {
+  background-color: #fca311;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.relation-form button:hover {
+  background-color: #e38f03;
+}
+.alert {
+  position: relative;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  text-align: left;
+}
+
+.alert-success {
+  background-color: #d1e7dd;
+  color: #0f5132;
+  border: 1px solid #badbcc;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #842029;
+  border: 1px solid #f5c2c7;
+}
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+.btn-add {
+  background-color: #fca311;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-add:hover {
+  background-color: #e38f03;
+}

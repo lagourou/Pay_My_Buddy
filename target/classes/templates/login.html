@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page de connexion</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <div class="cadre">
+      <div class="header">
+        <button class="btn-pmb"><strong>Pay My Buddy</strong></button>
+      </div>
+      <div class="container">
+        <div class="alert" th:if="${param.error}" role="alert">
+          <p class="alert-error">Identifiant ou mot de passe incorrect</p>
+        </div>
+        <div class="alert" th:if="${param.success}" role="alert">
+          <p class="alert-success">Déconnexion réussie</p>
+        </div>
+        <form th:action="@{/login}" method="post" class="login-form">
+          <input
+            id="email"
+            type="text"
+            name="username"
+            placeholder="Mail"
+            class="styled-input"
+            required
+            aria-describedby="email"
+          />
+          <input
+            id="password"
+            type="password"
+            name="password"
+            placeholder="Mot de passe"
+            class="styled-input"
+            required
+            aria-describedby="password"
+          />
+          <button class="submit"><strong>Se connecter</strong></button>
+        </form>
+        <footer class="form-footer">
+          <a href="#" class="link">Mot de passe oublié ?</a>
+          <span class="separator">|</span>
+          <a href="/register" class="link">Créer un compte</a>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

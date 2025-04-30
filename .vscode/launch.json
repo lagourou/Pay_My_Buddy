@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-OcP6Application<OC_P6>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.pay_my_buddy.OC_P6.OcP6Application",
+      "projectName": "OC_P6",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

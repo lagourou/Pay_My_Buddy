@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page d'ajout d'une relation</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+    <div class="heading">
+        <span>Pay My Buddy</span>
+        <nav>
+            <a href="/transaction" sec:authorize="isAuthenticated()">Transférer</a>
+            <a href="/profil" sec:authorize="isAuthenticated()">Profil</a>
+            <a href="/friends" sec:authorize="isAuthenticated()" class="active">Ajouter relation</a>
+            <a href="/login?logout" sec:authorize="isAuthenticated()">Se déconnecter</a>
+        </nav>
+    </div>
+
+    <div class="tank">
+        <div th:if="${success}" class="alert alert-success">
+            <p th:text="${success}"></p>
+            <button type="button" class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
+        </div>
+        <div th:if="${error}" class="alert alert-danger">
+            <p th:text="${error}"></p>
+            <button type="button" class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
+        </div>
+
+        <h2>Chercher une relation</h2>
+        <form th:action="@{/add}" method="post" class="relation-form">
+            <input type="email" name="email" placeholder="Saisir une adresse mail" required />
+            <button type="submit" class="btn-add">Ajouter</button>
+        </form>
+    </div>
+    
+</body>
+</html>
