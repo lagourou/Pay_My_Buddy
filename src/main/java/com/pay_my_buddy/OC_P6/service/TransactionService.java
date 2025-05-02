@@ -111,7 +111,7 @@ public class TransactionService {
     }
 
     @Transactional
-    public TransactionResponseDTO transfertToBank(Long userId, BigDecimal amount, String description) {
+    public TransactionResponseDTO transfertToAccountBank(Long userId, BigDecimal amount, String bankAccount, String description) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("L'utilisateur n'existe pas"));
 
@@ -127,7 +127,7 @@ public class TransactionService {
 
         user.setAccountBalance(user.getAccountBalance().subtract(totalAmount));
 
-        Transaction transaction = createTransaction(user, null, amount, "Transfert vers Banque :" + description);
+        Transaction transaction = createTransaction(user, null, amount, "Transfert vers le compte bancaire :" + bankAccount + " " + description);
         transactionRepository.save(transaction);
 
         return transactionMapper.toTransactionResponseDTO(transaction);
