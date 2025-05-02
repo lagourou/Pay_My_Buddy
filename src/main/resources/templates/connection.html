@@ -8,28 +8,24 @@
 </head>
 <body>
     <div class="heading">
-        <span>Pay My Buddy</span>
+        <span><strong>Pay My Buddy</strong></span>
         <nav>
-            <a href="/transaction" sec:authorize="isAuthenticated()">Transférer</a>
-            <a href="/profil" sec:authorize="isAuthenticated()">Profil</a>
-            <a href="/friends" sec:authorize="isAuthenticated()" class="active">Ajouter relation</a>
-            <a href="/login?logout" sec:authorize="isAuthenticated()">Se déconnecter</a>
+            <strong>
+                <a href="/transaction" sec:authorize="isAuthenticated()">Transférer</a>
+                <a href="/profil" sec:authorize="isAuthenticated()">Profil</a>
+                <a href="/friends" sec:authorize="isAuthenticated()" class="active">Ajouter relation</a>
+                <a href="/login?logout" sec:authorize="isAuthenticated()">Se déconnecter</a>
+            </strong>
         </nav>
     </div>
-
     <div class="tank">
-        <div th:if="${success}" class="alert alert-success">
-            <p th:text="${success}"></p>
-            <button type="button" class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
-        </div>
-        <div th:if="${error}" class="alert alert-danger">
-            <p th:text="${error}"></p>
-            <button type="button" class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
-        </div>
-
-        <h2>Chercher une relation</h2>
+        <h2><strong>Chercher une relation</strong></h2>
         <form th:action="@{/add}" method="post" class="relation-form">
-            <input type="email" name="email" placeholder="Saisir une adresse mail" required />
+            <div class="input-tank">
+                <input type="email" name="email" placeholder="Saisir une adresse mail" required th:classappend="${success != null} ? 'success-input' : (${error != null} ? 'error-input' : '')"/>
+                <span th:if="${success}" class="status-message success-message" th:text="${success}"></span>
+                <span th:if="${error}" class="status-message error-message" th:text="${error}"></span>
+            </div>
             <button type="submit" class="btn-add">Ajouter</button>
         </form>
     </div>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page de profil</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+    <div class="heading">
+        <span><strong>Pay My Buddy</strong></span>
+        <nav>
+            <strong>
+                <a href="/transaction" sec:authorize="isAuthenticated()">Transférer</a>
+                <a href="/profil" sec:authorize="isAuthenticated()">Profil</a>
+                <a href="/friends" sec:authorize="isAuthenticated()" class="active">Ajouter relation</a>
+                <a href="/login?logout" sec:authorize="isAuthenticated()">Se déconnecter</a>
+            </strong>
+        </nav>
+
+</body>
+</html>

@@ -63,7 +63,6 @@ body {
   font-size: 14px;
 }
 
-/* Formulaires connexion & inscription */
 .login-form,
 .register-form {
   width: 70%;
@@ -130,12 +129,13 @@ body {
 }
 .heading {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  padding: 25px 40px;
-  border-bottom: 1px solid #ddd;
+  gap: 200px;
+  padding: 25px 50px;
 }
 .heading span {
+  margin-right: 10px;
   font-weight: 500;
   font-size: 14px;
 }
@@ -148,30 +148,35 @@ body {
 }
 
 .heading nav a.active {
-  color: #0d6efd;
+  color: #007bff;
   font-weight: bold;
 }
+
+.heading nav a:hover {
+  color: #007bff;
+}
+
 .tank {
   max-width: 600px;
   margin: 100px auto 0 auto;
-  text-align: center;
 }
 .tank h2 {
   font-size: 14px;
   font-weight: 500;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
+  padding-top: 70px;
 }
 .relation-form {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
 }
 
 .relation-form input[type="email"] {
   padding: 10px 15px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid #bbb;
   font-size: 14px;
   width: 300px;
   outline: none;
@@ -185,38 +190,12 @@ body {
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  margin-top: -15px;
 }
 .relation-form button:hover {
   background-color: #e38f03;
 }
-.alert {
-  position: relative;
-  padding: 12px 20px;
-  margin-bottom: 20px;
-  border-radius: 6px;
-  text-align: left;
-}
 
-.alert-success {
-  background-color: #d1e7dd;
-  color: #0f5132;
-  border: 1px solid #badbcc;
-}
-
-.alert-danger {
-  background-color: #f8d7da;
-  color: #842029;
-  border: 1px solid #f5c2c7;
-}
-.close-btn {
-  position: absolute;
-  top: 8px;
-  right: 12px;
-  background: transparent;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-}
 .btn-add {
   background-color: #fca311;
   color: white;
@@ -230,4 +209,33 @@ body {
 
 .btn-add:hover {
   background-color: #e38f03;
+}
+
+.input-tank {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.status-message {
+  font-size: 12px;
+  margin-top: 5px;
+  font-weight: bold;
+}
+.success-message {
+  color: green;
+}
+
+.error-message {
+  color: red;
+}
+.success-input {
+  border: 2px solid green;
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.error-input {
+  border: 2px solid red;
+  background-repeat: no-repeat;
+  background-position: right 10px center;
 }

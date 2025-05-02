@@ -1,7 +1,9 @@
 package com.pay_my_buddy.OC_P6.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,11 +24,11 @@ public class Transaction {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sender", nullable = false)
     private User sender;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "receiver", nullable = false)
     private User receiver;
 
@@ -35,5 +37,8 @@ public class Transaction {
 
     @Column(name = "amount", precision = 10, scale = 2)
     private BigDecimal amount;
+
+    @Column(name = "transaction_date", nullable = false, updatable = false)
+    private LocalDateTime transactionDate = LocalDateTime.now();
 
 }

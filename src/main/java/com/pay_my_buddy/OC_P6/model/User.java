@@ -1,12 +1,19 @@
 package com.pay_my_buddy.OC_P6.model;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -30,6 +37,16 @@ public class User {
     private String password;
 
     @Column(name = "account_balance", precision = 10, scale = 2)
-    private BigDecimal account_balance;
+    private BigDecimal accountBalance;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_connections", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "connection_id"))
+    private Set<User> friends;
+
+    @OneToMany(mappedBy = "sender", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Transaction> sentTransactions;
+
+    @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Transaction> receivedTransactions;
 
 }

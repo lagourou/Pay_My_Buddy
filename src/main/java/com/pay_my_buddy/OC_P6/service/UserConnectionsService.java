@@ -1,6 +1,7 @@
 package com.pay_my_buddy.OC_P6.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -51,7 +52,8 @@ public class UserConnectionsService {
 
     @Transactional
     public List<UserConnectionsResponseDTO> getUserConnections(Long userId) {
-        List<UserConnections> connections = userConnectionsRepository.findConnectionsByUserId(userId);
+        
+        Optional<UserConnections> connections = userConnectionsRepository.findConnectionsByUserId(userId);
 
         return connections.stream()
                 .map(connection -> new UserConnectionsResponseDTO(

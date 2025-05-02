@@ -45,8 +45,8 @@ public class SecurityConfig {
                                                 auth -> auth.requestMatchers("/", "/login", "/register").permitAll()
                                                                 .requestMatchers("/css/**", "/js/**, /images/**")
                                                                 .permitAll()
-                                                                .requestMatchers("/friends", "/add", "/del")
-                                                                .authenticated()
+                                                                .requestMatchers("/friends").permitAll()
+                                                                .requestMatchers("/add", "/del").authenticated()
                                                                 .anyRequest().authenticated())
                                 .formLogin(form -> form.loginPage("/login").permitAll())
                                 .build();
