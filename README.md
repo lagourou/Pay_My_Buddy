@@ -9,4 +9,4 @@ L'application Pay My Buddy est une application qui permet aux utilisateurs d'env
 
 # Diagramme MPD
 
-![MPD](https://github.com/user-attachments/assets/b1c812ea-80b3-415a-9bc2-9246edc19c60)
+
