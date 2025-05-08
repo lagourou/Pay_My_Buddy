@@ -63,7 +63,7 @@ The documentation is available online via the GitHub Pages site for this reposit
 
 # Configuration requise
 • Java 17<br> 
-• MySql<br>  
+• MySql 
 • Maven<br> 
 
 # Installation
