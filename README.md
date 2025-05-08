@@ -48,7 +48,7 @@ Les relations entre ces entités sont les suivantes :
 
 - Un utilisateur peut être connecté à plusieurs autres utilisateurs.
 - Un utilisateur peut réaliser plusieurs transactions, soit en envoyant, soit en recevant de l'argent.
-- Chaque transaction est associée à un expéditeur et un bénéficiaire.
+- Chaque transaction est associée à un expéditeur et un destinataire.
 
 # Documentation
 
