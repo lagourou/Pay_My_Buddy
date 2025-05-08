@@ -1,0 +1,29 @@
+DROP TABLE IF EXISTS user_connections;
+DROP TABLE IF EXISTS transaction;
+DROP TABLE IF EXISTS user;
+
+CREATE TABLE user (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100),
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    account_balance DECIMAL(10,2) NOT NULL DEFAULT 0
+);
+
+CREATE TABLE transaction (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    sender INT NOT NULL,
+    receiver INT NOT NULL,
+    description TEXT,
+    amount DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (sender) REFERENCES user (id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (receiver) REFERENCES user (id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE user_connections (
+    user_id INT NOT NULL,
+    connection_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (connection_id) REFERENCES user (id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    PRIMARY KEY (user_id, connection_id)
+);

@@ -37,7 +37,7 @@ public class User {
     private String password;
 
     @Column(name = "account_balance", precision = 10, scale = 2)
-    private BigDecimal accountBalance;
+    private BigDecimal accountBalance = BigDecimal.valueOf(0.00);
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_connections", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "connection_id"))

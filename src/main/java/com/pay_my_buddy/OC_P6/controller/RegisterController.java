@@ -3,10 +3,12 @@ package com.pay_my_buddy.OC_P6.controller;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.pay_my_buddy.OC_P6.dto.RegisterRequestDTO;
 import com.pay_my_buddy.OC_P6.model.User;
 import com.pay_my_buddy.OC_P6.repository.UserRepository;
 
@@ -21,14 +23,21 @@ public class RegisterController {
     private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
-    public String registerUser(@Valid @ModelAttribute("user") User user, Model model) {
+    public String registerUser(@Valid @ModelAttribute("user") RegisterRequestDTO userDto, Model model, BindingResult result) {
 
-        if (userRepository.findByEmail(user.getEmail()) != null) {
+        if(result.hasErrors()) {
+            model.addAttribute("user", userDto);
+        }
+
+        if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
 
             model.addAttribute("error", "Email déjà utilisé");
-            return "redirect:/register";
+            return "register";
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User user = new User();
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         userRepository.save(user);
 
         model.addAttribute("success", "Inscription réussie");
@@ -38,7 +47,7 @@ public class RegisterController {
     @GetMapping("/register")
     public String register(Model model) {
 
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new RegisterRequestDTO());
         return "register";
     }
 }

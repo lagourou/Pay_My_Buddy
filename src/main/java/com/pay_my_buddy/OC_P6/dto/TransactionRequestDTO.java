@@ -20,7 +20,7 @@ public class TransactionRequestDTO {
 
     @NotBlank
     @Email
-    private String Email;
+    private String email;
 
     @NotBlank
     @Size(min = 5, max = 50)

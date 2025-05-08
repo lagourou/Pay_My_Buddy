@@ -47,12 +47,12 @@ public class TransactionService {
     }
 
     @Transactional
-    public TransactionResponseDTO addNewTransaction(Long senderId, Long receiverId, BigDecimal amount,
+    public TransactionResponseDTO addNewTransaction(Long senderId, String receiverEmail, BigDecimal amount,
             String description) {
         User sender = userRepository.findById(senderId)
                 .orElseThrow(() -> new IllegalArgumentException("L'expéditeur n'existe pas"));
 
-        User receiver = userRepository.findById(receiverId)
+        User receiver = userRepository.findByEmail(receiverEmail)
                 .orElseThrow(() -> new IllegalArgumentException("Le destinataire n'existe pas"));
 
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {

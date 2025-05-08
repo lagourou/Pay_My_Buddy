@@ -1,7 +1,6 @@
 package com.pay_my_buddy.OC_P6.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,6 +18,6 @@ public interface UserConnectionsRepository extends JpaRepository<UserConnections
     boolean existsByUserIdAndConnectionId(Long userId, Long connectionId);
 
     @Query("SELECT uc FROM UserConnections uc JOIN FETCH uc.connection WHERE uc.user.id = :userId")
-    Optional<UserConnections> findConnectionsByUserId(@Param("userId") Long userId);
+    List<UserConnections> findConnectionsByUserId(@Param("userId") Long userId);
 
 }

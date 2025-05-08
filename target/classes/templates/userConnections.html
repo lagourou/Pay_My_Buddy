@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page d'ajout d'une relation</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <div class="heading">
+      <span><strong>Pay My Buddy</strong></span>
+      <nav>
+        <strong>
+          <a th:href="@{/transaction}"
+            sec:authorize="isAuthenticated()">Transférer</a>
+          <a th:href="@{/profil}" sec:authorize="isAuthenticated()">Profil</a>
+          <a th:href="@{/userConnections}" sec:authorize="isAuthenticated()"
+            class="active">Ajouter relation</a>
+          <a th:href="@{/logout}" sec:authorize="isAuthenticated()">Se
+            déconnecter</a>
+        </strong>
+      </nav>
+    </div>
+    <div class="tank">
+      <h2><strong>Chercher une relation</strong></h2>
+      <form th:action="@{/add}" method="post" class="relation-form">
+        <div class="input-tank">
+          <input
+            type="email"
+            name="email"
+            th:value="${email}"
+            placeholder="Saisir une adresse mail"
+            required
+            th:classappend="${success != null} ? 'success-input' : (${error != null} ? 'error-input' : '')" />
+        </div>
+        <button type="submit" class="btn-add">Ajouter</button>
+      </form>
+      <div class="alert-container">
+        <p th:if="${error}" th:text="${error}"
+          class="alert-error"></p>
+        <p th:if="${success}" th:text="${success}"
+          class="alert-success"></p>
+      </div>
+    </div>
+  </body>
+</html>

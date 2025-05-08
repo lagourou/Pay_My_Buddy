@@ -6,7 +6,7 @@ import org.mapstruct.Mapping;
 import com.pay_my_buddy.OC_P6.dto.RegisterRequestDTO;
 import com.pay_my_buddy.OC_P6.model.User;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserMapper {
 
     public RegisterRequestDTO toRegisterRequestDTO(User user);
