@@ -82,40 +82,41 @@ mvn spring-boot:run
 # Tests
 Le projet inclut des tests unitaires pour les contrôleurs, services et la sécurité
 
-Lancer les tests avec :  mvn test
-Générer le rapport de couverture du code avec : mvn jacoco:report
+Lancer les tests avec :  ```bash mvn test ```
+Générer le rapport de couverture du code avec : ```bash mvn jacoco:report ```
 
 Consulter les rapports qui sont dans target/site/jacoco/
 
 # Sécurité
-L'application utilise Spring Security pour gérer l'authentification et l'autorisation des utilisateurs. Les mots de passe sont sécurisés grâce à un encodage avec BCrypt.
+L'application utilise Spring Security pour gérer l'authentification et l'autorisation des utilisateurs. 
+Les mots de passe sont sécurisés grâce à un encodage avec BCrypt.
 
 # Navigation dans l'Application
 L'application utilise **Thymeleaf** pour générer plusieurs pages **HTML** dynamiques.  
 
-• **login.html** : Page de connexion
-• **register.html** : Page d'inscription
-• **profil.html** : Gestion du compte utilisateur
-• **userConnections** : Gestion des amis/contacts
-• **transaction.html** : Transactions et suivi des paiements
+- **login.html** : Page de connexion
+- **register.html** : Page d'inscription
+- **profil.html** : Gestion du compte utilisateur
+- **userConnections** : Gestion des amis/contacts
+- **transaction.html** : Transactions et suivi des paiements
 
 # Traitement des exceptions
 L'application possède un gestionnaire d'exceptions centralisé qui capte et traite certaines exceptions spécifiques comme :
 
-• **EntityNotFoundException** : Entité introuvable
-• **UserNotFoundException** : Utilisateur n'existe pas
-• **FriendAlreadyExistsException** : Connexion existante entre deux utilisateurs
-• **ContactAlreadyExistException** : Contact existant dans la liste de l'utilisateur
-• **InsufficientBalanceException** : Solde insuffisant pour effectuer une transaction
-• **SelfTransferredAmountException** : Transfert vers soi-même interdit
+- **EntityNotFoundException** : Entité introuvable
+- **UserNotFoundException** : Utilisateur n'existe pas
+- **FriendAlreadyExistsException** : Connexion existante entre deux utilisateurs
+- **ContactAlreadyExistException** : Contact existant dans la liste de l'utilisateur
+- **InsufficientBalanceException** : Solde insuffisant pour effectuer une transaction
+- **SelfTransferredAmountException** : Transfert vers soi-même interdit
 
 # Tests d'intégration
 Les tests d'intégration assurent le bon fonctionnement global de l'application et peuvent être exécutés avec : ```sh mvn verify
 
 # Architecture des répertoires
-• **src/main/java** : Répertoire du code source principal
-• **src/main/resources** : Ressources de l'application(templates, CSS, application.properties et scripts SQL)
-• **src/test/java** : Tests unitaires et d'intégration
+- **src/main/java** : Répertoire du code source principal
+- **src/main/resources** : Ressources de l'application(templates, CSS, application.properties et scripts SQL)
+- **src/test/java** : Tests unitaires et d'intégration
 
 # Accessibilité et Conformité WCAG  
 
@@ -123,10 +124,10 @@ L'application a été conçue pour respecter les normes **WCAG 2.1 niveau AA**, 
 
 **Optimisations mises en place** :  
 
-• **Contraste amélioré** : Respect des ratios WCAG pour une meilleure lisibilité.  
-• **Liens identifiables** : Soulignement par défaut et surbrillance au survol dans les formulaires.  
-• **Navigation au clavier** : Focus visible et optimisé pour tous les éléments interactifs.  
-• **Formulaires accessibles** : Labels explicites et messages d'erreur clairs pour une meilleure compréhension.  
+- **Contraste amélioré** : Respect des ratios WCAG pour une meilleure lisibilité.  
+- **Liens identifiables** : Soulignement par défaut et surbrillance au survol dans les formulaires.  
+- **Navigation au clavier** : Focus visible et optimisé pour tous les éléments interactifs.  
+- **Formulaires accessibles** : Labels explicites et messages d'erreur clairs pour une meilleure compréhension.  
 
 Grâce à ces améliorations, l'application demeure **fonctionnelle, intuitive et agréable** pour les utilisateurs.
 
