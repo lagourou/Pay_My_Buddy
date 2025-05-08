@@ -16,11 +16,11 @@ L'application Pay My Buddy est une application qui permet aux utilisateurs d'env
 • **MapStruct** - Convertit facilement des objets Java entre eux  
 
 # Fonctionnalités
-• Inscription et connexion sécurisée des utilisateurs.
-• Ajout des amis pour effectuer des transactions.
-• Transfert d'argent entre amis
-• Gestions des comptes et historiques des transactions
-• Protection des données via Spring Security
+• **Inscription et connexion sécurisée** des utilisateurs  
+• **Ajout d'amis** pour effectuer des transactions  
+• **Transfert d'argent** entre amis  
+• **Gestion des comptes** et historique des transactions  
+• **Protection des données** via Spring Security  
 
 # Architecture du Projet
 • **Controller** : Reçoit les demandes et envoie les réponses
