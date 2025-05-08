@@ -72,11 +72,9 @@ The documentation is available online via the GitHub Pages site for this reposit
 • **3** Construire le projet : Exécuter  
 ```bash
 mvn clean package
-
 • **4** Lancer l'application : Exécuter  
 ```bash
 mvn spring-boot:run
-
 • **5** Accéder à l'application via l'adresse: http://localhost:8080
 
 # Tests
