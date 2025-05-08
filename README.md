@@ -68,11 +68,9 @@ The documentation is available online via the GitHub Pages site for this reposit
 
 # Installation  
 • **1** Cloner le dépôt GitHub.  
-• **2** Ajouter les informations MySQL dans `application.properties`.  
-• **3** Construire le projet : Exécuter 
-mvn clean package
-• **4** Lancer l'application : Exécuter  
-mvn spring-boot:run
+• **2** Ajouter les informations MySQL dans **application.properties*
+• **3** Construire le projet : Exécuter mvn clean package
+• **4** Lancer l'application : Exécuter mvn spring-boot:run
 • **5** Accéder à l'application via l'adresse : **http://localhost:8080**  
 
 
