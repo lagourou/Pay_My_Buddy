@@ -12,7 +12,7 @@ L'application Pay My Buddy est une application qui permet aux utilisateurs d'env
 •**Thymeleaf** - Génération de pages web dynamiques 
 •**MySQL** - Base de données<br>
 •**JaCoCo** - Couverture de code Java<br> 
-•**JUnit** - Outil pour tester le code<br>                   
+•**JUnit** - Outil pour tester le code                  
 •**MapStruct** - Convertit facilement des objets Java entre eux
 
 # Fonctionnalités
