@@ -62,20 +62,22 @@ All project documentation is stored in the **documents** folder of the GitHub re
 The documentation is available online via the GitHub Pages site for this repository
 
 # Configuration requise
-• Java 17
-• MySql
-• Maven
+• **Java 17**
+• **MySql**
+• **Maven**
 
 # Installation
-**1** Cloner le dépôt GitHub.
-**2** Ajouter les informations MySQL dans application.properties.
-**3** Construire le projet: Exécuter ```sh
+• **1** Cloner le dépôt GitHub.  
+• **2** Ajouter les informations MySQL dans application.properties.  
+• **3** Construire le projet : Exécuter  
+```bash
 mvn clean package
 
-**4** Lancer l'application: Exécuter ```sh 
+• **4** Lancer l'application : Exécuter  
+```bash
 mvn spring-boot:run
 
-**5** Accéder à l'application via l'adresse ```sh http://localhost:8080
+• **5** Accéder à l'application via l'adresse: http://localhost:8080
 
 # Tests
 Le projet inclut des tests unitaires pour les contrôleurs, services et la sécurité
