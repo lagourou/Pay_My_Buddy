@@ -23,11 +23,11 @@ L'application Pay My Buddy est une application qui permet aux utilisateurs d'env
 • **Protection des données** via Spring Security  
 
 # Architecture du Projet
-• **Controller** : Reçoit les demandes et envoie les réponses
-• **Service** : Gère la logique de l'application
-• **Model** : Représente les éléments du projet
-• **DTO** : Objets de transfert de données
-• **Mapper** : Transforme les objets d’un format à un autre
+• **Controller** : Reçoit les demandes et envoie les réponses  
+• **Service** : Gère la logique de l'application  
+• **Model** : Représente les éléments du projet  
+• **DTO** : Objets de transfert de données  
+• **Mapper** : Transforme les objets d’un format à un autre 
 
 # Diagrammes
 • **Diagramme UML** montre les relations entre les différentes tables et leurs éléments.
