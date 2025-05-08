@@ -82,10 +82,15 @@ mvn spring-boot:run
 # Tests
 Le projet inclut des tests unitaires pour les contrôleurs, services et la sécurité
 
-Lancer les tests avec :  ```bash mvn test ```
-Générer le rapport de couverture du code avec : ```bash mvn jacoco:report ```
-
-Consulter les rapports qui sont dans target/site/jacoco/
+Lancer les tests avec :  
+```bash 
+mvn test
+```
+Générer le rapport de couverture du code avec :   
+```bash
+mvn jacoco:report
+```
+Consulter les rapports qui sont dans **target/site/jacoco/**
 
 # Sécurité
 L'application utilise Spring Security pour gérer l'authentification et l'autorisation des utilisateurs. 
