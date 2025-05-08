@@ -117,7 +117,10 @@ L'application possède un gestionnaire d'exceptions centralisé qui capte et tra
 - **SelfTransferredAmountException** : Transfert vers soi-même interdit
 
 # Tests d'intégration
-Les tests d'intégration assurent le bon fonctionnement global de l'application et peuvent être exécutés avec : ```sh mvn verify
+Les tests d'intégration assurent le bon fonctionnement global de l'application et peuvent être exécutés avec : 
+```bash
+mvn verify
+```
 
 # Architecture des répertoires
 - **src/main/java** : Répertoire du code source principal
