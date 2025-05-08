@@ -3,17 +3,17 @@ L'application Pay My Buddy est une application qui permet aux utilisateurs d'env
 à leurs amis ou contacts.
 
 # Technologies utilisées
-**Java 17** - Langage de programmation
-**Spring Boot 3.4.5** - Framework d'application
-**Spring Data JPA** - Sauvegarde des données
-**Spring Security** - Authentification et autorisation   
-**Maven** - Gestion des dépendances
-**Lombok** - Simplifie le code en réduisant la répétition
-**Thymeleaf** - Génération de pages web dynamiques 
-**MySQL** - Base de données
-**JaCoCo** - Couverture de code Java 
-**JUnit** - Outil pour tester le code                  
-**MapStruct** - Convertit facilement des objets Java entre eux
+• **Java 17** - Langage de programmation  
+• **Spring Boot 3.4.5** - Framework d'application  
+• **Spring Data JPA** - Sauvegarde des données  
+• **Spring Security** - Authentification et autorisation  
+• **Maven** - Gestion des dépendances  
+• **Lombok** - Simplifie le code en réduisant la répétition  
+• **Thymeleaf** - Génération de pages web dynamiques  
+• **MySQL** - Base de données  
+• **JaCoCo** - Couverture de code Java  
+• **JUnit** - Outil pour tester le code  
+• **MapStruct** - Convertit facilement des objets Java entre eux  
 
 # Fonctionnalités
 • Inscription et connexion sécurisée des utilisateurs.
