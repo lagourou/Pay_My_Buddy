@@ -69,29 +69,21 @@ The documentation is available online via the GitHub Pages site for this reposit
 # Installation  
 • **1** Cloner le dépôt GitHub.  
 • **2** Ajouter les informations MySQL dans `application.properties`.  
-• **3** Construire le projet : Exécuter  
-```bash
+• **3** Construire le projet : Exécuter 
 mvn clean package
-• 4 Lancer l'application : Exécuter
+• **4** Lancer l'application : Exécuter  
 mvn spring-boot:run
+• **5** Accéder à l'application via l'adresse : **http://localhost:8080**  
 
 
 
-• **4** Lancer l'application : Exécuter
 
- 
-```bash
-mvn spring-boot:run
-
-
-
-• **5** Accéder à l'application via l'adresse: http://localhost:8080
 
 # Tests
 Le projet inclut des tests unitaires pour les contrôleurs, services et la sécurité
 
-Lancer les tests avec : ```sh mvn test
-Générer le rapport de couverture du code avec : ```sh mvn jacoco:report
+Lancer les tests avec :  mvn test
+Générer le rapport de couverture du code avec : mvn jacoco:report
 
 Consulter les rapports qui sont dans target/site/jacoco/
 
