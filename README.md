@@ -89,6 +89,7 @@ Consulter les rapports qui sont dans target/site/jacoco/
 
 # Sécurité
 L'application utilise Spring Security pour gérer l'authentification et l'autorisation des utilisateurs. 
+<br>
 Les mots de passe sont sécurisés grâce à un encodage avec BCrypt.
 
 # Navigation dans l'Application
