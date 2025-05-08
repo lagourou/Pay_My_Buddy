@@ -66,15 +66,25 @@ The documentation is available online via the GitHub Pages site for this reposit
 • MySql 
 • Maven 
 
-# Installation
+# Installation  
 • **1** Cloner le dépôt GitHub.  
-• **2** Ajouter les informations MySQL dans application.properties.  
+• **2** Ajouter les informations MySQL dans `application.properties`.  
 • **3** Construire le projet : Exécuter  
 ```bash
 mvn clean package
-• **4** Lancer l'application : Exécuter  
+• 4 Lancer l'application : Exécuter
+mvn spring-boot:run
+
+
+
+• **4** Lancer l'application : Exécuter
+
+ 
 ```bash
 mvn spring-boot:run
+
+
+
 • **5** Accéder à l'application via l'adresse: http://localhost:8080
 
 # Tests
