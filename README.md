@@ -80,7 +80,7 @@ mvn spring-boot:run
 - **5** Accéder à l'application via l'adresse : **http://localhost:8080**  
 
 # Tests
-Le projet inclut des tests unitaires pour les contrôleurs, services et la sécurité
+**Tests Unitaires**: Le projet inclut des tests unitaires pour les contrôleurs, services et la sécurité
 
 Lancer les tests avec :  
 ```bash 
@@ -91,6 +91,11 @@ Générer le rapport de couverture du code avec :
 mvn jacoco:report
 ```
 Consulter les rapports qui sont dans **target/site/jacoco/**
+
+**Tests d'Intégration**: Les tests d'intégration assurent le bon fonctionnement global de l'application et peuvent être exécutés avec : 
+```bash
+mvn verify
+```
 
 # Sécurité
 L'application utilise Spring Security pour gérer l'authentification et l'autorisation des utilisateurs. 
@@ -116,11 +121,7 @@ L'application possède un gestionnaire d'exceptions centralisé qui capte et tra
 - **InsufficientBalanceException** : Solde insuffisant pour effectuer une transaction
 - **SelfTransferredAmountException** : Transfert vers soi-même interdit
 
-# Tests d'intégration
-Les tests d'intégration assurent le bon fonctionnement global de l'application et peuvent être exécutés avec : 
-```bash
-mvn verify
-```
+
 
 # Architecture des répertoires
 - **src/main/java** : Répertoire du code source principal
