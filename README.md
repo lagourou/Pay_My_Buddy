@@ -62,9 +62,9 @@ All project documentation is stored in the **documents** folder of the GitHub re
 The documentation is available online via the GitHub Pages site for this repository
 
 # Configuration requise
-• **Java 17** -
-• **MySql** -
-• **Maven** -
+• Java 17
+• MySql
+• Maven
 
 # Installation
 • **1** Cloner le dépôt GitHub.  
