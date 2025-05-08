@@ -40,24 +40,24 @@ L'application Pay My Buddy est une application qui permet aux utilisateurs d'env
 
 Le schéma de la base de données repose sur trois entités principales :
 
-• **User** : Contient les informations des utilisateurs, telles que l'email, le mot de passe et le solde.
-• **Transaction** : Enregistre chaque transfert d'argent, incluant le montant, la date et une description.
-• **UserConnection** : Gère les liens d’amitié entre les utilisateurs.
+- **User** : Contient les informations des utilisateurs, telles que l'email, le mot de passe et le solde.
+- **Transaction** : Enregistre chaque transfert d'argent, incluant le montant, la date et une description.
+- **UserConnection** : Gère les liens d’amitié entre les utilisateurs.
 
 Les relations entre ces entités sont les suivantes :
 
-• Un utilisateur peut être connecté à plusieurs autres utilisateurs.
-• Un utilisateur peut réaliser plusieurs transactions, soit en envoyant, soit en recevant de l'argent.
-• Chaque transaction est associée à un expéditeur et un bénéficiaire.
+- Un utilisateur peut être connecté à plusieurs autres utilisateurs.
+- Un utilisateur peut réaliser plusieurs transactions, soit en envoyant, soit en recevant de l'argent.
+- Chaque transaction est associée à un expéditeur et un bénéficiaire.
 
 # Documentation
 
 All project documentation is stored in the **documents** folder of the GitHub repository and is available online:
 
-• (liens) JaCoCo Reports: Shows code coverage
-• Maven Unit Test Reports: Results from test execution and compilation
-• Maven Integration Test Reports: Results from test execution and compilation
-• JavaDoc: API documentation
+- (liens) JaCoCo Reports: Shows code coverage
+- Maven Unit Test Reports: Results from test execution and compilation
+- Maven Integration Test Reports: Results from test execution and compilation
+- JavaDoc: API documentation
 
 The documentation is available online via the GitHub Pages site for this repository
 
@@ -67,11 +67,11 @@ The documentation is available online via the GitHub Pages site for this reposit
 - Maven 
 
 # Installation  
-• **1** Cloner le dépôt GitHub.  
-• **2** Ajouter les informations MySQL dans **application.properties*
-• **3** Construire le projet : Exécuter mvn clean package
-• **4** Lancer l'application : Exécuter mvn spring-boot:run
-• **5** Accéder à l'application via l'adresse : **http://localhost:8080**  
+- **1** Cloner le dépôt GitHub.  
+- **2** Ajouter les informations MySQL dans **application.properties*
+- **3** Construire le projet : Exécuter mvn clean package
+- **4** Lancer l'application : Exécuter mvn spring-boot:run
+- **5** Accéder à l'application via l'adresse : **http://localhost:8080**  
 
 
 
