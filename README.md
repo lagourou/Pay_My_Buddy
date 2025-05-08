@@ -42,7 +42,7 @@ Le schéma de la base de données repose sur trois entités principales :
 
 - **User** : Contient les informations des utilisateurs, telles que l'email, le mot de passe et le solde.
 - **Transaction** : Enregistre chaque transfert d'argent, incluant le montant, la date et une description.
-- **UserConnection** : Gère les liens d’amitié entre les utilisateurs.
+- **User_Connection** : Gère les liens d’amitié entre les utilisateurs.
 
 Les relations entre ces entités sont les suivantes :
 
