@@ -80,7 +80,7 @@ mvn spring-boot:run
 - **5** Accéder à l'application via l'adresse : **http://localhost:8080**  
 
 # Tests
--Tests Unitaires : Le projet inclut des tests unitaires pour les contrôleurs, services et la sécurité
+**Tests Unitaires** : Le projet inclut des tests unitaires pour les contrôleurs, services et la sécurité
 
 Lancer les tests avec :  
 ```bash 
@@ -92,7 +92,7 @@ mvn jacoco:report
 ```
 Consulter les rapports qui sont dans **target/site/jacoco/**
 
--Tests d'Intégration : Les tests d'intégration assurent le bon fonctionnement global de l'application et peuvent être exécutés avec : 
+**Tests d'Intégration** : Les tests d'intégration assurent le bon fonctionnement global de l'application et peuvent être exécutés avec : 
 ```bash
 mvn verify
 ```
