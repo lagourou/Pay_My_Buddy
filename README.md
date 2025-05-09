@@ -36,7 +36,7 @@ L'application Pay My Buddy est une application qui permet aux utilisateurs d'env
 
 • **Diagramme MPD** montre comment les données de l'application sont structurées et liées.
 
-![Diagramm_MPD](https://github.com/user-attachments/assets/acc735d2-0d5e-44b0-a4a6-98bebc5d38a9)
+![Diagramm_MPD](https://github.com/user-attachments/assets/87814431-9ba7-4f96-8034-80724ac688ab)
 
 Le schéma de la base de données repose sur trois entités principales :
 
