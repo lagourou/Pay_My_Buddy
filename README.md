@@ -54,6 +54,7 @@ Les relations entre ces entités sont les suivantes :
 **Javadoc**:
 <br>
 La documentation Javadoc aide à mieux comprendre le code Java et à le rendre plus clair
+<br>
 Consulter la Javadoc qui est dans **target/site/apidocs**
 
 # Configuration requise
