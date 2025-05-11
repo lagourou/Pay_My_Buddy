@@ -51,7 +51,8 @@ Les relations entre ces entités sont les suivantes :
 - Chaque transaction est associée à un expéditeur et un destinataire.
 
 # Documentation
-**Javadoc**
+**Javadoc**:
+<br>
 La documentation pour s'informer sur le code Java afin de le rendre plus clair
 Consulter la Javadoc qui est dans **target/site/apidocs**
 
