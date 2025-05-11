@@ -54,7 +54,7 @@ Les relations entre ces entités sont les suivantes :
 
 All project documentation is stored in the **documents** folder of the GitHub repository and is available online:
 
-- [**JaCoCo Reports**](https://github.com/lagourou/Pay_My_Buddy/blob/main/target/site/jacoco/index.html)target/site/jacoco/index.html: Shows code coverage
+- [**JaCoCo Reports**](https://github.com/lagourou/Pay_My_Buddy/blob/main/target/site/jacoco/index.html): Shows code coverage
 - [**Surefire Reports**](https://github.com/lagourou/Pay_My_Buddy/blob/main/target/site/surefire-report.html):  Shows unit test
 - JavaDoc: API documentation
 
