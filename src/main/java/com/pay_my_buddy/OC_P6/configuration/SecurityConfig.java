@@ -42,7 +42,7 @@ public class SecurityConfig {
 
                 return http.authorizeHttpRequests(auth -> auth.requestMatchers("/", "/login", "/register").permitAll()
                                 .requestMatchers("/css/**").permitAll()
-                                .requestMatchers("/add", "/del", "/userConnections", "/profil", "/transaction")
+                                .requestMatchers("/add", "/userConnections", "/profil", "/transaction", "/pay")
                                 .authenticated()
                                 .anyRequest().authenticated())
                                 .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/transaction", true)

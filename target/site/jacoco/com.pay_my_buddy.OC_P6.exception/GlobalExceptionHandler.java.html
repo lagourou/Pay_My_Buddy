@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GlobalExceptionHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OC_P6</a> &gt; <a href="index.source.html" class="el_package">com.pay_my_buddy.OC_P6.exception</a> &gt; <span class="el_source">GlobalExceptionHandler.java</span></div><h1>GlobalExceptionHandler.java</h1><pre class="source lang-java linenums">package com.pay_my_buddy.OC_P6.exception;
+
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+@ControllerAdvice
+<span class="fc" id="L8">public class GlobalExceptionHandler {</span>
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public String handleResourceNotFoundException(EntityNotFoundException ex,
+            RedirectAttributes redirectAttributes) {
+<span class="fc" id="L13">        redirectAttributes.addFlashAttribute(&quot;error&quot;, ex.getMessage());</span>
+<span class="fc" id="L14">        return &quot;redirect:/login&quot;;</span>
+    }
+
+    @ExceptionHandler(InsufficientBalanceException.class)
+    public String handleInsufficientBalanceException(InsufficientBalanceException ex,
+            RedirectAttributes redirectAttributes) {
+<span class="fc" id="L20">        redirectAttributes.addFlashAttribute(&quot;error&quot;, ex.getMessage());</span>
+<span class="fc" id="L21">        return &quot;redirect:/transaction&quot;;</span>
+    }
+
+    @ExceptionHandler(SelfTransferredAmountException.class)
+    public String handleSelfTransferredAmountException(SelfTransferredAmountException ex,
+            RedirectAttributes redirectAttributes) {
+<span class="fc" id="L27">        redirectAttributes.addFlashAttribute(&quot;error&quot;, ex.getMessage());</span>
+<span class="fc" id="L28">        return &quot;redirect:/transaction&quot;;</span>
+    }
+
+    @ExceptionHandler(ContactAlreadyExistException.class)
+    public String handleContactAlreadyExistException(ContactAlreadyExistException ex,
+            RedirectAttributes redirectAttributes) {
+<span class="fc" id="L34">        redirectAttributes.addFlashAttribute(&quot;error&quot;, ex.getMessage());</span>
+<span class="fc" id="L35">        return &quot;redirect:/userConnections&quot;;</span>
+    }
+
+    @ExceptionHandler(FriendAlreadyExistsException.class)
+    public String handleFriendAlreadyExistsException(FriendAlreadyExistsException ex,
+            RedirectAttributes redirectAttributes) {
+<span class="fc" id="L41">        redirectAttributes.addFlashAttribute(&quot;error&quot;, ex.getMessage());</span>
+<span class="fc" id="L42">        return &quot;redirect:/userConnections&quot;;</span>
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public String handleUserNotFoundException(UserNotFoundException ex, RedirectAttributes redirectAttributes) {
+<span class="fc" id="L47">        redirectAttributes.addFlashAttribute(&quot;error&quot;, ex.getMessage());</span>
+<span class="fc" id="L48">        return &quot;redirect:/userConnections&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

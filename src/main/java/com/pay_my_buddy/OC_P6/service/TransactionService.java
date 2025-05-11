@@ -110,27 +110,4 @@ public class TransactionService {
         return transactionMapper.toTransactionResponseDTO(transaction);
     }
 
-    @Transactional
-    public TransactionResponseDTO transfertToAccountBank(Long userId, BigDecimal amount, String bankAccount, String description) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("L'utilisateur n'existe pas"));
-
-        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Le montant du transfert doit être supérieur à zéro.");
-        }
-        if (user.getAccountBalance().compareTo(amount) < 0) {
-            throw new IllegalArgumentException("Le solde est insuffisant pour le transfert");
-        }
-        BigDecimal feePercentage = new BigDecimal("0.005");
-        BigDecimal feeAmount = amount.multiply(feePercentage).setScale(2, RoundingMode.HALF_UP);
-        BigDecimal totalAmount = amount.add(feeAmount);
-
-        user.setAccountBalance(user.getAccountBalance().subtract(totalAmount));
-
-        Transaction transaction = createTransaction(user, null, amount, "Transfert vers le compte bancaire :" + bankAccount + " " + description);
-        transactionRepository.save(transaction);
-
-        return transactionMapper.toTransactionResponseDTO(transaction);
-
-    }
 }

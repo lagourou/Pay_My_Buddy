@@ -51,7 +51,7 @@ public class UserConnectionsService {
 
     @Transactional
     public List<UserConnectionsResponseDTO> getUserConnections(Long userId) {
-        
+
         List<UserConnections> connections = userConnectionsRepository.findConnectionsByUserId(userId);
 
         return connections.stream()
@@ -61,22 +61,4 @@ public class UserConnectionsService {
                         connection.getConnection().getEmail()))
                 .collect(Collectors.toList());
     }
-
-    @Transactional
-    public void deleteConnection(Long userId, String email) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("Utilisateur non trouvé"));
-
-        User connectionUser = userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("Aucun utilisateur trouvé avec cet e-mail"));
-
-        UserConnectionId userConnectionId = new UserConnectionId(user.getId(), connectionUser.getId());
-
-        if (!userConnectionsRepository.existsByUserIdAndConnectionId(user.getId(), connectionUser.getId())) {
-            throw new IllegalArgumentException("Cette connexion n'existe pas");
-        }
-
-        userConnectionsRepository.deleteById(userConnectionId);
-    }
-
 }

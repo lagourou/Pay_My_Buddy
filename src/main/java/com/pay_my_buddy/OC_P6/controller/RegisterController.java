@@ -23,9 +23,10 @@ public class RegisterController {
     private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
-    public String registerUser(@Valid @ModelAttribute("user") RegisterRequestDTO userDto, Model model, BindingResult result) {
+    public String registerUser(@Valid @ModelAttribute("user") RegisterRequestDTO userDto, Model model,
+            BindingResult result) {
 
-        if(result.hasErrors()) {
+        if (result.hasErrors()) {
             model.addAttribute("user", userDto);
         }
 

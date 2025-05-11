@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserDetailsImplements.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OC_P6</a> &gt; <a href="index.source.html" class="el_package">com.pay_my_buddy.OC_P6.configuration</a> &gt; <span class="el_source">UserDetailsImplements.java</span></div><h1>UserDetailsImplements.java</h1><pre class="source lang-java linenums">package com.pay_my_buddy.OC_P6.configuration;
+
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.pay_my_buddy.OC_P6.model.User;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+public class UserDetailsImplements implements UserDetails {
+
+    private Long id;
+    private String username;
+    private String email;
+    private String password;
+
+<span class="fc" id="L23">    public UserDetailsImplements(User user) {</span>
+<span class="fc" id="L24">        this.id = user.getId();</span>
+<span class="fc" id="L25">        this.username = user.getUsername();</span>
+<span class="fc" id="L26">        this.email = user.getEmail();</span>
+<span class="fc" id="L27">        this.password = user.getPassword();</span>
+
+<span class="fc" id="L29">    }</span>
+
+    @Override
+    public String getPassword() {
+<span class="fc" id="L33">        return password;</span>
+    }
+
+    @Override
+    public String getUsername() {
+<span class="fc" id="L38">        return username;</span>
+    }
+
+    public String getEmail() {
+<span class="fc" id="L42">        return email;</span>
+    }
+
+    public Long getId() {
+<span class="fc" id="L46">        return id;</span>
+    }
+
+    @Override
+    public Collection&lt;? extends GrantedAuthority&gt; getAuthorities() {
+<span class="fc" id="L51">        return List.of();</span>
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+<span class="fc" id="L56">        return true;</span>
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+<span class="fc" id="L61">        return true;</span>
+    }
+
+    @Override
+    public boolean isEnabled() {
+<span class="fc" id="L66">        return true;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,1 +1,15 @@
-C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\src\test\java\com\pay_my_buddy\OC_P6\OcP6ApplicationTests.java
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\src\test\java\com\pay_my_buddy\OC_P6\unitaire\service\TransactionServiceTest.java
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\src\test\java\com\pay_my_buddy\OC_P6\unitaire\service\UserConnectionsServiceTest.java
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\src\test\java\com\pay_my_buddy\OC_P6\unitaire\mapper\TransactionMapperTest.java
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\src\test\java\com\pay_my_buddy\OC_P6\unitaire\controller\UserConnectionsControllerTest.java
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\src\test\java\com\pay_my_buddy\OC_P6\unitaire\configuration\UserDetailsImplementsTest.java
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\src\test\java\com\pay_my_buddy\OC_P6\unitaire\controller\ProfilControllerTest.java
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\src\test\java\com\pay_my_buddy\OC_P6\unitaire\controller\RegisterControllerTest.java
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\src\test\java\com\pay_my_buddy\OC_P6\unitaire\controller\TransactionControllerTest.java
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\src\test\java\com\pay_my_buddy\OC_P6\unitaire\configuration\CustomUserDetailsServiceTest.java
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\src\test\java\com\pay_my_buddy\OC_P6\unitaire\exception\GlobalExceptionHandlerTest.java
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\src\test\java\com\pay_my_buddy\OC_P6\unitaire\mapper\UserMapperTest.java
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\src\test\java\com\pay_my_buddy\OC_P6\unitaire\service\UserServiceTest.java
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\src\test\java\com\pay_my_buddy\OC_P6\unitaire\configuration\SecurityConfigTest.java
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\src\test\java\com\pay_my_buddy\OC_P6\unitaire\controller\LoginControllerTest.java
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\src\test\java\com\pay_my_buddy\OC_P6\OcP6ApplicationTest.java

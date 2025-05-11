@@ -13,12 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pay_my_buddy.OC_P6.configuration.UserDetailsImplements;
 import com.pay_my_buddy.OC_P6.dto.RegisterRequestDTO;
 import com.pay_my_buddy.OC_P6.dto.UserConnectionsResponseDTO;
+import com.pay_my_buddy.OC_P6.exception.ContactAlreadyExistException;
+import com.pay_my_buddy.OC_P6.exception.EntityNotFoundException;
 import com.pay_my_buddy.OC_P6.exception.FriendAlreadyExistsException;
 import com.pay_my_buddy.OC_P6.exception.InsufficientBalanceException;
-import com.pay_my_buddy.OC_P6.exception.EntityNotFoundException;
 import com.pay_my_buddy.OC_P6.exception.SelfTransferredAmountException;
 import com.pay_my_buddy.OC_P6.exception.UserNotFoundException;
-import com.pay_my_buddy.OC_P6.exception.ContactAlreadyExistException;
 import com.pay_my_buddy.OC_P6.model.User;
 import com.pay_my_buddy.OC_P6.repository.UserRepository;
 

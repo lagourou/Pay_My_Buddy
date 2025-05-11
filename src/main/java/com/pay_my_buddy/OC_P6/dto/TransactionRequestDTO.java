@@ -26,8 +26,8 @@ public class TransactionRequestDTO {
     @Size(min = 5, max = 50)
     private String description;
 
-    @DecimalMin(value = "0.01")
-    @Digits(integer = 10, fraction = 2)
+    @DecimalMin(value = "0.1")
+    @Digits(integer = 10, fraction = 1)
     @NumberFormat(style = NumberFormat.Style.NUMBER)
     private BigDecimal amount;
 

@@ -1,1 +1,16 @@
-com\pay_my_buddy\OC_P6\OcP6ApplicationTests.class
+com\pay_my_buddy\OC_P6\unitaire\controller\LoginControllerTest.class
+com\pay_my_buddy\OC_P6\unitaire\service\TransactionServiceTest.class
+com\pay_my_buddy\OC_P6\unitaire\configuration\CustomUserDetailsServiceTest.class
+com\pay_my_buddy\OC_P6\unitaire\configuration\SecurityConfigTest.class
+com\pay_my_buddy\OC_P6\unitaire\controller\TransactionControllerTest.class
+com\pay_my_buddy\OC_P6\unitaire\exception\GlobalExceptionHandlerTest.class
+com\pay_my_buddy\OC_P6\unitaire\mapper\TransactionMapperTest.class
+com\pay_my_buddy\OC_P6\unitaire\controller\UserConnectionsControllerTest.class
+com\pay_my_buddy\OC_P6\unitaire\mapper\UserMapperTest.class
+com\pay_my_buddy\OC_P6\unitaire\service\UserConnectionsServiceTest.class
+com\pay_my_buddy\OC_P6\OcP6ApplicationTest.class
+com\pay_my_buddy\OC_P6\unitaire\controller\RegisterControllerTest.class
+com\pay_my_buddy\OC_P6\unitaire\service\UserServiceTest.class
+com\pay_my_buddy\OC_P6\unitaire\controller\ProfilControllerTest.class
+com\pay_my_buddy\OC_P6\unitaire\configuration\UserDetailsImplementsTest.class
+com\pay_my_buddy\OC_P6\unitaire\controller\UserConnectionsControllerTest$1.class

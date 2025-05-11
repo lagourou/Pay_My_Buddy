@@ -6,7 +6,7 @@
     <title>Page de transfert</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
   </head>
-  <body>
+  <body class="transaction-page">
     <div class="heading">
       <span><strong>Pay My Buddy</strong></span>
       <nav>
@@ -29,7 +29,6 @@
     <div th:if="${success}" class="alert alert-success">
       <p th:text="${success}"></p>
     </div>
-
     <form
       th:action="@{/pay}"
       th:object="${transactionRequest}"
@@ -42,7 +41,6 @@
           <option th:each="friend : ${friends}" th:value="${friend.email}"
             th:text="${friend.username}"></option>
         </select>
-
       </div>
       <div class="description">
         <input
@@ -62,7 +60,6 @@
           placeholder="0€"
           required />
       </div>
-
       <button type="submit" class="btn-pay">Payer</button>
     </form>
     <table>

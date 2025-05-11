@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.pay_my_buddy.OC_P6.OcP6ApplicationTests
--------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 52.57 s -- in com.pay_my_buddy.OC_P6.OcP6ApplicationTests

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TransactionController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OC_P6</a> &gt; <a href="index.source.html" class="el_package">com.pay_my_buddy.OC_P6.controller</a> &gt; <span class="el_source">TransactionController.java</span></div><h1>TransactionController.java</h1><pre class="source lang-java linenums">package com.pay_my_buddy.OC_P6.controller;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.pay_my_buddy.OC_P6.configuration.UserDetailsImplements;
+import com.pay_my_buddy.OC_P6.dto.AccountBalanceRequestDTO;
+import com.pay_my_buddy.OC_P6.dto.TransactionRequestDTO;
+import com.pay_my_buddy.OC_P6.model.User;
+import com.pay_my_buddy.OC_P6.service.TransactionService;
+import com.pay_my_buddy.OC_P6.service.UserConnectionsService;
+import com.pay_my_buddy.OC_P6.service.UserService;
+
+import lombok.RequiredArgsConstructor;
+
+@Controller
+@RequiredArgsConstructor
+public class TransactionController {
+
+    private final UserService userService;
+    private final TransactionService transactionService;
+    private final UserConnectionsService userConnectionsService;
+
+    @GetMapping(&quot;/transaction&quot;)
+    public String transaction(Model model, @AuthenticationPrincipal UserDetailsImplements userDetails,
+            @ModelAttribute TransactionRequestDTO transactionRequest,
+            @ModelAttribute AccountBalanceRequestDTO balanceRequest) throws Exception {
+
+<span class="nc" id="L34">        model.addAttribute(&quot;balanceResponse&quot;, balanceRequest);</span>
+<span class="nc" id="L35">        model.addAttribute(&quot;transactionResponse&quot;, transactionRequest);</span>
+<span class="nc" id="L36">        model.addAttribute(&quot;friends&quot;, userConnectionsService.getUserConnections(userDetails.getId()));</span>
+<span class="nc" id="L37">        model.addAttribute(&quot;transactionsList&quot;, transactionService.getUserTransactionHistory(userDetails.getId()));</span>
+<span class="nc" id="L38">        model.addAttribute(&quot;userBalance&quot;, userService.getUserById(userDetails.getId()).getAccountBalance());</span>
+<span class="nc" id="L39">        model.addAttribute(&quot;transactionRequest&quot;, new TransactionRequestDTO());</span>
+
+<span class="nc" id="L41">        return &quot;transaction&quot;;</span>
+    }
+
+    @PostMapping(&quot;/pay&quot;)
+    public String pay(@ModelAttribute TransactionRequestDTO transactionRequest,
+            @AuthenticationPrincipal UserDetailsImplements userDetails, RedirectAttributes redirectAttributes) {
+
+        try {
+<span class="fc" id="L49">            transactionService.addNewTransaction(userDetails.getId(), transactionRequest.getEmail(),</span>
+<span class="fc" id="L50">                    transactionRequest.getAmount(), transactionRequest.getDescription());</span>
+
+<span class="fc" id="L52">            redirectAttributes.addFlashAttribute(&quot;success&quot;, &quot;Paiement réussi&quot;);</span>
+<span class="pc" id="L53">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L54">            redirectAttributes.addFlashAttribute(&quot;error&quot;, &quot;Erreur : &quot; + e.getMessage());</span>
+        }
+<span class="fc" id="L56">        return &quot;redirect:/transaction&quot;;</span>
+    }
+
+    @PostMapping(&quot;/payment&quot;)
+    public String payment(@ModelAttribute AccountBalanceRequestDTO balanceRequest,
+            @AuthenticationPrincipal UserDetailsImplements userDetails, RedirectAttributes redirectAttributes)
+            throws Exception {
+
+<span class="nc" id="L64">        User user = userService.getUserByEmail(userDetails.getEmail());</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (user != null) {</span>
+<span class="nc" id="L66">            userService.addBalance(user, balanceRequest.getAmount());</span>
+        }
+
+<span class="nc" id="L69">        redirectAttributes.addFlashAttribute(&quot;success&quot;, &quot;Dépôt réussi&quot;);</span>
+
+<span class="nc" id="L71">        return &quot;redirect:/transaction&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserConnectionsController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">OC_P6</a> &gt; <a href="index.source.html" class="el_package">com.pay_my_buddy.OC_P6.controller</a> &gt; <span class="el_source">UserConnectionsController.java</span></div><h1>UserConnectionsController.java</h1><pre class="source lang-java linenums">package com.pay_my_buddy.OC_P6.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
+import com.pay_my_buddy.OC_P6.configuration.UserDetailsImplements;
+import com.pay_my_buddy.OC_P6.model.User;
+import com.pay_my_buddy.OC_P6.service.UserConnectionsService;
+import com.pay_my_buddy.OC_P6.service.UserService;
+
+import lombok.RequiredArgsConstructor;
+
+@Controller
+@RequiredArgsConstructor
+public class UserConnectionsController {
+
+    private final UserConnectionsService userConnectionsService;
+    private final UserService userService;
+
+    @PostMapping(&quot;/add&quot;)
+    public String addConnection(@RequestParam(&quot;email&quot;) String email,
+            @AuthenticationPrincipal UserDetailsImplements userDetails,
+            RedirectAttributes redirectAttributes) {
+        try {
+<span class="fc" id="L31">            User friend = userService.getUserByEmail(email);</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">            if (friend == null) {</span>
+<span class="fc" id="L33">                throw new IllegalArgumentException(&quot;Cet utilisateur n'existe pas.&quot;);</span>
+            }
+
+<span class="fc" id="L36">            userConnectionsService.addConnections(userDetails.getId(), friend.getEmail());</span>
+<span class="fc" id="L37">            redirectAttributes.addFlashAttribute(&quot;success&quot;, &quot;Connexion ajoutée avec succès&quot;);</span>
+
+<span class="fc" id="L39">        } catch (IllegalArgumentException e) {</span>
+<span class="fc" id="L40">            redirectAttributes.addFlashAttribute(&quot;error&quot;, &quot;Erreur : &quot; + e.getMessage());</span>
+        }
+
+<span class="fc" id="L43">        return &quot;redirect:/userConnections?add&quot;;</span>
+    }
+
+    @GetMapping(&quot;/userConnections&quot;)
+    public String showConnections(@AuthenticationPrincipal UserDetailsImplements userDetails,
+            @ModelAttribute(&quot;success&quot;) String success, @ModelAttribute(&quot;error&quot;) String error,
+            Model model) {
+<span class="fc" id="L50">        System.out.println(&quot;Appel du service : &quot; + userConnectionsService.getUserConnections(userDetails.getId()));</span>
+
+<span class="fc" id="L52">        model.addAttribute(&quot;connections&quot;, userConnectionsService.getUserConnections(userDetails.getId()));</span>
+
+<span class="fc" id="L54">        model.addAttribute(&quot;success&quot;, success);</span>
+<span class="fc" id="L55">        model.addAttribute(&quot;error&quot;, error);</span>
+<span class="fc" id="L56">        return &quot;userConnections&quot;;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

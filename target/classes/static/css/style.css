@@ -27,14 +27,22 @@ body {
 .alert-danger {
   display: flex;
   flex-direction: column;
+  font-size: 10px;
+  color: red;
   text-align: center;
+}
+.alert-success {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 10px;
+  color: green;
 }
 .error-message {
   font-size: 9px;
   color: red;
 }
-.alert-error,
-.alert-success {
+.alert-error {
   position: absolute;
   font-size: 11px;
   margin-top: 30px;
@@ -42,9 +50,7 @@ body {
 .alert-error {
   color: red;
 }
-.alert-success {
-  color: green;
-}
+
 .success-input {
   border: 2px solid green;
   background-color: #e6ffe6;
@@ -307,6 +313,9 @@ body {
   width: 350px;
   margin-top: 100px;
 }
+.at-symbol {
+  font-size: 10px;
+}
 
 .form-group {
   display: flex;
@@ -369,6 +378,15 @@ body {
 }
 
 /*Page de transfert*/
+
+.transaction-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  width: 100%;
+}
 
 .btn-pay {
   display: block;

@@ -12,7 +12,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.pay_my_buddy.OC_P6.configuration.UserDetailsImplements;
 import com.pay_my_buddy.OC_P6.dto.RegisterRequestDTO;
 import com.pay_my_buddy.OC_P6.mapper.UserMapper;
-import com.pay_my_buddy.OC_P6.model.User;
 import com.pay_my_buddy.OC_P6.service.UserService;
 
 import jakarta.validation.Valid;
@@ -28,8 +27,12 @@ public class ProfilController {
     @GetMapping("/profil")
     public String profil(@AuthenticationPrincipal UserDetailsImplements userDetails, Model model) throws Exception {
 
-        User user = userService.getUserByEmail(userDetails.getEmail());
-        model.addAttribute("user", userMapper.toRegisterRequestDTO(user));
+        if (userDetails != null && userDetails.getId() != null) {
+            RegisterRequestDTO userForm = userMapper.toRegisterRequestDTO(userService.getUserById(userDetails.getId()));
+            model.addAttribute("user", userForm);
+        } else {
+            return "redirect:/login";
+        }
         return "profil";
     }
 
@@ -39,8 +42,7 @@ public class ProfilController {
             throws Exception {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("error", "Erreur lors de la modification");
-            return "redirect:/profil";
+            return "profil";
         }
         userService.updateUser(updatedUser, userDetails.getId());
         redirectAttributes.addFlashAttribute("success", "Profil bien modifié");

@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.pay_my_buddy.OC_P6.configuration.UserDetailsImplements;
 import com.pay_my_buddy.OC_P6.dto.AccountBalanceRequestDTO;
 import com.pay_my_buddy.OC_P6.dto.TransactionRequestDTO;
+import com.pay_my_buddy.OC_P6.model.User;
 import com.pay_my_buddy.OC_P6.service.TransactionService;
 import com.pay_my_buddy.OC_P6.service.UserConnectionsService;
 import com.pay_my_buddy.OC_P6.service.UserService;
@@ -60,11 +61,13 @@ public class TransactionController {
             @AuthenticationPrincipal UserDetailsImplements userDetails, RedirectAttributes redirectAttributes)
             throws Exception {
 
-        userService.addBalance(userService.getUserById(userDetails.getId()), balanceRequest.getAmount());
+        User user = userService.getUserByEmail(userDetails.getEmail());
+        if (user != null) {
+            userService.addBalance(user, balanceRequest.getAmount());
+        }
 
         redirectAttributes.addFlashAttribute("success", "Dépôt réussi");
 
         return "redirect:/transaction";
     }
-
 }
