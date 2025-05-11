@@ -51,14 +51,9 @@ Les relations entre ces entités sont les suivantes :
 - Chaque transaction est associée à un expéditeur et un destinataire.
 
 # Documentation
-
-All project documentation is stored in the **documents** folder of the GitHub repository and is available online:
-
-- [**JaCoCo Reports**](https://github.com/lagourou/Pay_My_Buddy/blob/main/target/site/jacoco/index.html): Shows code coverage
-- [**Surefire Reports**](https://github.com/lagourou/Pay_My_Buddy/blob/main/target/site/surefire-report.html):  Shows unit test
-- JavaDoc: API documentation
-
-The documentation is available online via the GitHub Pages site for this repository
+**Javadoc**
+La documentation pour s'informer sur le code Java afin de le rendre plus clair
+Consulter la Javadoc qui est dans **target/site/apidocs**
 
 # Configuration requise
 - Java 17
