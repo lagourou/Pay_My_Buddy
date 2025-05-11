@@ -15,6 +15,9 @@ import com.pay_my_buddy.OC_P6.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Service pour gérer les connexions entre utilisateurs.
+ */
 @Service
 @RequiredArgsConstructor
 public class UserConnectionsService {
@@ -22,6 +25,15 @@ public class UserConnectionsService {
     private final UserConnectionsRepository userConnectionsRepository;
     private final UserRepository userRepository;
 
+    /**
+     * Ajoute une nouvelle connexion entre deux utilisateurs.
+     *
+     * @param userId l'ID de l'utilisateur qui initie la connexion
+     * @param email  l'email de l'utilisateur à ajouter en connexion
+     * @return l'objet UserConnections représentant la connexion
+     * @throws IllegalArgumentException si un utilisateur est introuvable ou si la
+     *                                  connexion est invalide
+     */
     @Transactional
     public UserConnections addConnections(Long userId, String email) {
 
@@ -49,6 +61,13 @@ public class UserConnectionsService {
         return userConnectionsRepository.save(userConnections);
     }
 
+    /**
+     * Récupère la liste des connexions d'un utilisateur.
+     *
+     * @param userId l'ID de l'utilisateur dont on veut récupérer les connexions
+     * @return une liste de DTO contenant les informations des connexions de
+     *         l'utilisateur
+     */
     @Transactional
     public List<UserConnectionsResponseDTO> getUserConnections(Long userId) {
 

@@ -19,6 +19,9 @@ import com.pay_my_buddy.OC_P6.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Service pour la gestion des transactions.
+ */
 @Service
 @RequiredArgsConstructor
 public class TransactionService {
@@ -27,14 +30,35 @@ public class TransactionService {
     private final UserRepository userRepository;
     private final TransactionMapper transactionMapper;
 
+    /**
+     * Récupère les transactions envoyées par un utilisateur donné.
+     *
+     * @param senderId l'ID de l'expéditeur
+     * @return la liste des transactions effectuées par l'expéditeur
+     */
     public List<Transaction> getTransactionsBySenderId(Long senderId) {
         return transactionRepository.findBySenderId(senderId);
     }
 
+    /**
+     * Récupère les transactions reçues par un utilisateur donné.
+     *
+     * @param receiverId l'ID du destinataire
+     * @return la liste des transactions reçues par le destinataire
+     */
     public List<Transaction> getTransactionsByReceiverId(Long receiverId) {
         return transactionRepository.findByReceiverId(receiverId);
     }
 
+    /**
+     * Crée une nouvelle transaction entre un expéditeur et un destinataire.
+     *
+     * @param sender      l'expéditeur
+     * @param receiver    le destinataire
+     * @param amount      le montant de la transaction
+     * @param description la description de la transaction
+     * @return l'objet Transaction créé
+     */
     private Transaction createTransaction(User sender, User receiver, BigDecimal amount, String description) {
         Transaction transaction = new Transaction();
         transaction.setSender(sender);
@@ -43,9 +67,17 @@ public class TransactionService {
         transaction.setDescription(description);
         transaction.setTransactionDate(LocalDateTime.now());
         return transaction;
-
     }
 
+    /**
+     * Ajoute une nouvelle transaction entre deux utilisateurs.
+     *
+     * @param senderId      l'ID de l'expéditeur
+     * @param receiverEmail l'email du destinataire
+     * @param amount        le montant de la transaction
+     * @param description   la description de la transaction
+     * @return l'objet DTO représentant la transaction
+     */
     @Transactional
     public TransactionResponseDTO addNewTransaction(Long senderId, String receiverEmail, BigDecimal amount,
             String description) {
@@ -68,7 +100,6 @@ public class TransactionService {
         }
 
         sender.setAccountBalance(sender.getAccountBalance().subtract(totalAmount));
-
         receiver.setAccountBalance(receiver.getAccountBalance().add(amount));
 
         Transaction transaction = createTransaction(sender, receiver, amount, description);
@@ -79,6 +110,12 @@ public class TransactionService {
         return transactionMapper.toTransactionResponseDTO(transaction);
     }
 
+    /**
+     * Récupère l'historique des transactions d'un utilisateur.
+     *
+     * @param userId l'ID de l'utilisateur
+     * @return une liste des transactions associées à cet utilisateur
+     */
     @Transactional
     public List<TransactionResponseDTO> getUserTransactionHistory(Long userId) {
         userRepository.findById(userId)
@@ -93,6 +130,14 @@ public class TransactionService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Ajoute des fonds au compte d'un utilisateur.
+     *
+     * @param userId      l'ID de l'utilisateur
+     * @param amount      le montant à ajouter
+     * @param description la description du dépôt
+     * @return l'objet DTO représentant la transaction
+     */
     @Transactional
     public TransactionResponseDTO feedAccount(Long userId, BigDecimal amount, String description) {
         User user = userRepository.findById(userId)
@@ -109,5 +154,4 @@ public class TransactionService {
 
         return transactionMapper.toTransactionResponseDTO(transaction);
     }
-
 }

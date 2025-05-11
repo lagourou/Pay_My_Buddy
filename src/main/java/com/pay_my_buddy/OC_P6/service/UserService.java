@@ -24,6 +24,9 @@ import com.pay_my_buddy.OC_P6.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Service pour la gestion des utilisateurs et de leurs connexions.
+ */
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -31,6 +34,13 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Récupère un utilisateur par son ID.
+     *
+     * @param id l'ID de l'utilisateur
+     * @return l'utilisateur correspondant
+     * @throws EntityNotFoundException si l'utilisateur n'existe pas
+     */
     public User getUserById(Long id) throws EntityNotFoundException {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Utilisateur introuvable"));
@@ -38,21 +48,45 @@ public class UserService {
         return user;
     }
 
+    /**
+     * Récupère un utilisateur par son email.
+     *
+     * @param email l'email de l'utilisateur
+     * @return l'utilisateur correspondant
+     * @throws UserNotFoundException si l'utilisateur n'existe pas
+     */
     public User getUserByEmail(String email) throws UserNotFoundException {
         System.out.println("Recherche utilisateur avec email : " + email);
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("Utilisateur introuvable"));
     }
 
+    /**
+     * Sauvegarde un utilisateur existant.
+     *
+     * @param user l'utilisateur à sauvegarder
+     */
     public void saveUser(User user) {
         userRepository.save(user);
     }
 
+    /**
+     * Sauvegarde un nouvel utilisateur en encodant son mot de passe.
+     *
+     * @param user le nouvel utilisateur à sauvegarder
+     */
     public void saveNewUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
+    /**
+     * Met à jour les informations d'un utilisateur.
+     *
+     * @param updatedUser les nouvelles informations de l'utilisateur
+     * @param id          l'ID de l'utilisateur
+     * @throws Exception si la mise à jour échoue
+     */
     public void updateUser(RegisterRequestDTO updatedUser, Long id) throws Exception {
         User user = getUserById(id);
         user = mergeUpdateUser(user, updatedUser);
@@ -65,6 +99,14 @@ public class UserService {
         SecurityContextHolder.getContext().setAuthentication(newAuth);
     }
 
+    /**
+     * Met à jour les informations d'un utilisateur avec les données fournies.
+     * Seuls les champs non nuls et modifiés seront mis à jour.
+     *
+     * @param existingUser l'utilisateur existant
+     * @param updatedDTO   les nouvelles informations de l'utilisateur
+     * @return l'utilisateur mis à jour
+     */
     private User mergeUpdateUser(User existingUser, RegisterRequestDTO updatedDTO) {
 
         Optional.ofNullable(updatedDTO.getUsername())
@@ -83,11 +125,13 @@ public class UserService {
         return existingUser;
     }
 
-    private boolean isValidUpdateUser(String newValue, String existingValue) {
-
-        return newValue != null && !newValue.isBlank() && !newValue.equals(existingValue);
-    }
-
+    /**
+     * Ajoute un ami à la liste de connexions de l'utilisateur.
+     *
+     * @param userId       l'ID de l'utilisateur
+     * @param connectionId l'ID de la connexion
+     * @throws FriendAlreadyExistsException si la connexion existe déjà
+     */
     @Transactional
     public void addFriend(Long userId, Long connectionId) throws FriendAlreadyExistsException {
         User user = getUserById(userId);
@@ -103,10 +147,13 @@ public class UserService {
         }
     }
 
-    private boolean isFriend(User user, User friend) {
-        return user.getFriends().contains(friend) || friend.getFriends().contains(user);
-    }
-
+    /**
+     * Supprime un ami de la liste de connexions de l'utilisateur.
+     *
+     * @param userId       l'ID de l'utilisateur
+     * @param connectionId l'ID de la connexion
+     * @throws ContactAlreadyExistException si la connexion n'existe pas
+     */
     @Transactional
     public void deleteFriend(Long userId, Long connectionId) throws ContactAlreadyExistException {
         User user = getUserById(userId);
@@ -122,6 +169,13 @@ public class UserService {
         }
     }
 
+    /**
+     * Récupère la liste des amis d'un utilisateur.
+     *
+     * @param userId l'ID de l'utilisateur
+     * @return une liste des connexions de l'utilisateur sous forme de DTO
+     * @throws UserNotFoundException si l'utilisateur n'existe pas
+     */
     @Transactional
     public List<UserConnectionsResponseDTO> getFriends(Long userId) throws UserNotFoundException {
         User user = userRepository.findById(userId)
@@ -132,6 +186,16 @@ public class UserService {
                 .toList();
     }
 
+    /**
+     * Met à jour le solde du compte utilisateur après une transaction.
+     *
+     * @param sender   l'expéditeur
+     * @param receiver le destinataire
+     * @param amount   le montant de la transaction
+     * @throws InsufficientBalanceException   si le solde est insuffisant
+     * @throws SelfTransferredAmountException si l'expéditeur et le destinataire
+     *                                        sont identiques
+     */
     @Transactional
     public void updateBalance(User sender, User receiver, BigDecimal amount)
             throws InsufficientBalanceException, SelfTransferredAmountException {
@@ -150,6 +214,32 @@ public class UserService {
         userRepository.save(receiver);
     }
 
+    /**
+     * Ajoute un montant au solde de l'utilisateur.
+     *
+     * @param user   l'utilisateur concerné
+     * @param amount le montant à ajouter
+     * @throws InsufficientBalanceException si le montant est invalide
+     */
+    @Transactional
+    public void addBalance(User user, BigDecimal amount) throws InsufficientBalanceException {
+        if (!isPositiveAmount(amount)) {
+            throw new InsufficientBalanceException("Le montant doit être positif");
+        }
+        user.setAccountBalance(user.getAccountBalance().add(amount));
+        userRepository.save(user);
+    }
+
+    // ------ Méthodes de validation : type booléen------
+    private boolean isValidUpdateUser(String newValue, String existingValue) {
+
+        return newValue != null && !newValue.isBlank() && !newValue.equals(existingValue);
+    }
+
+    private boolean isFriend(User user, User friend) {
+        return user.getFriends().contains(friend) || friend.getFriends().contains(user);
+    }
+
     private boolean isValidBalanceTransactionForSender(User sender, BigDecimal amount) {
         return sender.getAccountBalance().subtract(amount).compareTo(BigDecimal.ZERO) >= 0;
     }
@@ -160,15 +250,6 @@ public class UserService {
 
     private boolean isPositiveAmount(BigDecimal amount) {
         return amount.compareTo(BigDecimal.ZERO) > 0;
-    }
-
-    @Transactional
-    public void addBalance(User user, BigDecimal amount) throws InsufficientBalanceException {
-        if (!isPositiveAmount(amount)) {
-            throw new InsufficientBalanceException("Le montant doit être positif");
-        }
-        user.setAccountBalance(user.getAccountBalance().add(amount));
-        userRepository.save(user);
     }
 
 }
