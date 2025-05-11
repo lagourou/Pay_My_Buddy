@@ -28,8 +28,8 @@ public class UserConnectionsService {
     /**
      * Ajoute une nouvelle connexion entre deux utilisateurs.
      *
-     * @param userId l'ID de l'utilisateur qui initie la connexion
-     * @param email  l'email de l'utilisateur à ajouter en connexion
+     * @param userId l'ID de l'utilisateur qui ajoute la connexion
+     * @param email  l'email de l'utilisateur à ajouter en relation
      * @return l'objet UserConnections représentant la connexion
      * @throws IllegalArgumentException si un utilisateur est introuvable ou si la
      *                                  connexion est invalide

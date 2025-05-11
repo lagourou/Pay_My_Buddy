@@ -42,6 +42,7 @@ public class RegisterControllerTest {
     @BeforeEach
     @SuppressWarnings("unused")
     void setUp() {
+        // Initialise un utilisateur fictif
         validUser = new RegisterRequestDTO();
         validUser.setUsername("testuser");
         validUser.setEmail("test@example.com");
@@ -51,6 +52,7 @@ public class RegisterControllerTest {
     @Test
     @DisplayName("GET /register doit être accessible (status 200)")
     void testGetRegisterAccessible() throws Exception {
+        // Vérifie que la page d'inscription est accessible
         mockMvc.perform(get("/register"))
                 .andExpect(status().isOk());
     }
@@ -58,9 +60,11 @@ public class RegisterControllerTest {
     @Test
     @DisplayName("POST /register avec des infos valides doit rediriger (3xx)")
     void testPostRegisterAccessible() throws Exception {
+        // Simule un utilisateur non existant et un mot de passe encodé
         when(userRepository.findByEmail(validUser.getEmail())).thenReturn(Optional.empty());
         when(passwordEncoder.encode(validUser.getPassword())).thenReturn("encodedPassword");
 
+        // Vérifie que la soumission du formulaire redirige bien
         mockMvc.perform(post("/register")
                 .param("username", validUser.getUsername())
                 .param("email", validUser.getEmail())
@@ -72,8 +76,10 @@ public class RegisterControllerTest {
     @Test
     @DisplayName("POST /register avec email déjà utilisé doit rester sur la page (200)")
     void testPostRegisterEmailExistantAccessible() throws Exception {
+        // Simule un utilisateur déjà existant
         when(userRepository.findByEmail(validUser.getEmail())).thenReturn(Optional.of(new User()));
 
+        // Vérifie que la soumission du formulaire ne redirige pas et reste sur la page
         mockMvc.perform(post("/register")
                 .param("username", validUser.getUsername())
                 .param("email", validUser.getEmail())

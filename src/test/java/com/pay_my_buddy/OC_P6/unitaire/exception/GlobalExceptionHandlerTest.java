@@ -17,7 +17,7 @@ class GlobalExceptionHandlerTest {
     @SuppressWarnings("unused")
     void setUp() {
         globalExceptionHandler = new GlobalExceptionHandler();
-        redirectAttributes = new RedirectAttributesModelMap(); // ✅ Simulation de `RedirectAttributes`
+        redirectAttributes = new RedirectAttributesModelMap();
     }
 
     @Test

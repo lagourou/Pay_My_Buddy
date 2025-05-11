@@ -12,23 +12,26 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@Slf4j
 public class SecurityConfig {
 
         private final CustomUserDetailsService customUserDetailsService;
 
         @Bean
         public PasswordEncoder passwordEncoder() {
+                log.info("Initialisation du mot de passe encoder");
                 return new BCryptPasswordEncoder();
         }
 
         @Bean
         public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder)
                         throws Exception {
-
+                log.info("Configuration de l'Authentication Manager");
                 AuthenticationManagerBuilder authenticationManagerBuilder = http
                                 .getSharedObject(AuthenticationManagerBuilder.class);
                 authenticationManagerBuilder.userDetailsService(customUserDetailsService)
@@ -40,6 +43,7 @@ public class SecurityConfig {
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
+                log.info("Définition des règles de sécurité");
                 return http.authorizeHttpRequests(auth -> auth.requestMatchers("/", "/login", "/register").permitAll()
                                 .requestMatchers("/css/**").permitAll()
                                 .requestMatchers("/add", "/userConnections", "/profil", "/transaction", "/pay")

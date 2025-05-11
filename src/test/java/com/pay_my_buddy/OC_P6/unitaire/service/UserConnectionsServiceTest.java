@@ -52,6 +52,7 @@ class UserConnectionsServiceTest {
         connectionUser.setUsername("Jean");
         connectionUser.setEmail("jean@example.com");
 
+        // Initialise une connexion entre les deux utilisateurs
         userConnections = new UserConnections();
         userConnections.setId(new UserConnectionId(user.getId(), connectionUser.getId()));
         userConnections.setUser(user);
@@ -60,6 +61,8 @@ class UserConnectionsServiceTest {
 
     @Test
     void testAddConnectionsSuccess() {
+
+        // Simule l'ajout réussi d'une connexion utilisateur
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(userRepository.findByEmail("jean@example.com")).thenReturn(Optional.of(connectionUser));
         when(userConnectionsRepository.existsByUserIdAndConnectionId(user.getId(), connectionUser.getId()))
@@ -76,6 +79,8 @@ class UserConnectionsServiceTest {
 
     @Test
     void testAddConnectionsAlreadyExists() {
+
+        // Vérifie qu'une connexion existante ne peut pas être ajoutée
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(userRepository.findByEmail("jean@example.com")).thenReturn(Optional.of(connectionUser));
         when(userConnectionsRepository.existsByUserIdAndConnectionId(user.getId(), connectionUser.getId()))
@@ -89,43 +94,44 @@ class UserConnectionsServiceTest {
 
     @Test
     void testAddConnectionsToSelf() {
+
+        // Vérifie qu'un utilisateur ne peut pas se connecter à lui-même
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(userRepository.findByEmail("laurent@example.com")).thenReturn(Optional.of(user));
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> userConnectionsService.addConnections(1L, "laurent@example.com"));
-        assertEquals("Vous ne pouvez pas vous connecter à vous-même", exception.getMessage()); // ✅ Modifier le message
-                                                                                               // attendu
-
+        assertEquals("Vous ne pouvez pas vous connecter à vous-même", exception.getMessage());
     }
 
     @Test
     void testAddConnectionsUserNotFound() {
+
+        // Vérifie que l'ajout de connexion échoue si l'utilisateur n'existe pas
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> userConnectionsService.addConnections(1L, "jean@example.com"));
-        assertEquals("Aucun utilisateur trouvé", exception.getMessage()); // ✅ Modifier le message attendu
+        assertEquals("Aucun utilisateur trouvé", exception.getMessage());
 
     }
 
     @Test
     void testAddConnectionsEmailNotFound() {
+
+        // Vérifie que l'ajout échoue si l'email de l'utilisateur est introuvable
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(userRepository.findByEmail("jean@example.com")).thenReturn(Optional.empty());
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> userConnectionsService.addConnections(1L, "jean@example.com"));
-        assertEquals("Aucun utilisateur trouvé avec cet e-mail : jean@example.com", exception.getMessage()); // ✅
-                                                                                                             // Modifier
-                                                                                                             // le
-                                                                                                             // message
-                                                                                                             // attendu
-
+        assertEquals("Aucun utilisateur trouvé avec cet e-mail : jean@example.com", exception.getMessage());
     }
 
     @Test
     void testGetUserConnectionsSuccess() {
+
+        // Simule la récupération réussie des connexions utilisateur
         when(userConnectionsRepository.findConnectionsByUserId(1L))
                 .thenReturn(Arrays.asList(userConnections));
 
@@ -139,6 +145,8 @@ class UserConnectionsServiceTest {
 
     @Test
     void testGetUserConnectionsEmpty() {
+
+         // Vérifie que la liste des connexions utilisateur est vide si aucune connexion n'existe
         when(userConnectionsRepository.findConnectionsByUserId(1L))
                 .thenReturn(Arrays.asList());
 

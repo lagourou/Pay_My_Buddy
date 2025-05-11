@@ -41,7 +41,7 @@ public class TransactionControllerTest {
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(transactionController).build();
 
-        BigDecimal.valueOf(100);
+        BigDecimal.valueOf(100); // Valeur fictive pour un montant de test
         user = new User();
         user.setId(1L);
         user.setEmail("test@example.com");
@@ -49,23 +49,24 @@ public class TransactionControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "test@example.com", roles = "USER")
+    @WithMockUser(username = "test@example.com", roles = "USER") // Simule un utilisateur authentifié
     void testPay_SuccessfulTransaction() throws Exception {
         TransactionRequestDTO dto = new TransactionRequestDTO();
         dto.setEmail("friend@example.com");
         dto.setAmount(BigDecimal.valueOf(10));
         dto.setDescription("Déjeuner");
 
+        // Simule l'ajout d'une transaction réussie
         when(transactionService.addNewTransaction(anyLong(), anyString(), any(BigDecimal.class), anyString()))
                 .thenReturn(null);
-
+        // Vérifie que la requête POST effectue une redirection après paiement réussi
         mockMvc.perform(post("/pay")
                 .param("email", dto.getEmail())
                 .param("amount", dto.getAmount().toString())
                 .param("description", dto.getDescription()))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/transaction"))
-                .andExpect(flash().attribute("success", "Paiement réussi"));
+                .andExpect(status().is3xxRedirection())// Vérifie qu'il y a bien une redirection
+                .andExpect(redirectedUrl("/transaction"))// Vérifie la redirection vers la page de transaction
+                .andExpect(flash().attribute("success", "Paiement réussi")); // Vérifie le message de succès
     }
 
 }

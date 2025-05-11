@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.pay_my_buddy.OC_P6.unitaire.configuration.UserDetailsImplementsTest
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.061 s -- in com.pay_my_buddy.OC_P6.unitaire.configuration.UserDetailsImplementsTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.078 s -- in com.pay_my_buddy.OC_P6.unitaire.configuration.UserDetailsImplementsTest

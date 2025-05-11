@@ -15,9 +15,11 @@ import com.pay_my_buddy.OC_P6.service.UserConnectionsService;
 import com.pay_my_buddy.OC_P6.service.UserService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
+<span class="fc" id="L22">@Slf4j</span>
 public class UserConnectionsController {
 
     private final UserConnectionsService userConnectionsService;
@@ -28,32 +30,34 @@ public class UserConnectionsController {
             @AuthenticationPrincipal UserDetailsImplements userDetails,
             RedirectAttributes redirectAttributes) {
         try {
-<span class="fc" id="L31">            User friend = userService.getUserByEmail(email);</span>
-<span class="fc bfc" id="L32" title="All 2 branches covered.">            if (friend == null) {</span>
-<span class="fc" id="L33">                throw new IllegalArgumentException(&quot;Cet utilisateur n'existe pas.&quot;);</span>
+
+<span class="fc" id="L34">            log.info(&quot;Ajout de connexion avec {}&quot;, email);</span>
+<span class="fc" id="L35">            User friend = userService.getUserByEmail(email);</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">            if (friend == null) {</span>
+<span class="fc" id="L37">                throw new IllegalArgumentException(&quot;Cet utilisateur n'existe pas.&quot;);</span>
             }
 
-<span class="fc" id="L36">            userConnectionsService.addConnections(userDetails.getId(), friend.getEmail());</span>
-<span class="fc" id="L37">            redirectAttributes.addFlashAttribute(&quot;success&quot;, &quot;Connexion ajoutée avec succès&quot;);</span>
+<span class="fc" id="L40">            userConnectionsService.addConnections(userDetails.getId(), friend.getEmail());</span>
+<span class="fc" id="L41">            redirectAttributes.addFlashAttribute(&quot;success&quot;, &quot;Connexion ajoutée avec succès&quot;);</span>
 
-<span class="fc" id="L39">        } catch (IllegalArgumentException e) {</span>
-<span class="fc" id="L40">            redirectAttributes.addFlashAttribute(&quot;error&quot;, &quot;Erreur : &quot; + e.getMessage());</span>
+<span class="fc" id="L43">        } catch (IllegalArgumentException e) {</span>
+<span class="fc" id="L44">            log.warn(&quot;Erreur lors de l'ajout de connexion : {}&quot;, e.getMessage());</span>
+<span class="fc" id="L45">            redirectAttributes.addFlashAttribute(&quot;error&quot;, &quot;Erreur : &quot; + e.getMessage());</span>
         }
 
-<span class="fc" id="L43">        return &quot;redirect:/userConnections?add&quot;;</span>
+<span class="fc" id="L48">        return &quot;redirect:/userConnections?add&quot;;</span>
     }
 
     @GetMapping(&quot;/userConnections&quot;)
     public String showConnections(@AuthenticationPrincipal UserDetailsImplements userDetails,
             @ModelAttribute(&quot;success&quot;) String success, @ModelAttribute(&quot;error&quot;) String error,
             Model model) {
-<span class="fc" id="L50">        System.out.println(&quot;Appel du service : &quot; + userConnectionsService.getUserConnections(userDetails.getId()));</span>
 
-<span class="fc" id="L52">        model.addAttribute(&quot;connections&quot;, userConnectionsService.getUserConnections(userDetails.getId()));</span>
-
-<span class="fc" id="L54">        model.addAttribute(&quot;success&quot;, success);</span>
-<span class="fc" id="L55">        model.addAttribute(&quot;error&quot;, error);</span>
-<span class="fc" id="L56">        return &quot;userConnections&quot;;</span>
+<span class="fc" id="L56">        log.info(&quot;Affichage des connexions de l'utilisateur ID: {}&quot;, userDetails.getId());</span>
+<span class="fc" id="L57">        model.addAttribute(&quot;connections&quot;, userConnectionsService.getUserConnections(userDetails.getId()));</span>
+<span class="fc" id="L58">        model.addAttribute(&quot;success&quot;, success);</span>
+<span class="fc" id="L59">        model.addAttribute(&quot;error&quot;, error);</span>
+<span class="fc" id="L60">        return &quot;userConnections&quot;;</span>
     }
 
 }

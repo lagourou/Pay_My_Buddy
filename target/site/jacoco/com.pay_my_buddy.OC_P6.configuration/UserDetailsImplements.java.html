@@ -10,9 +10,11 @@ import com.pay_my_buddy.OC_P6.model.User;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Data
 @NoArgsConstructor
+<span class="fc" id="L17">@Slf4j</span>
 public class UserDetailsImplements implements UserDetails {
 
     private Long id;
@@ -20,50 +22,53 @@ public class UserDetailsImplements implements UserDetails {
     private String email;
     private String password;
 
-<span class="fc" id="L23">    public UserDetailsImplements(User user) {</span>
-<span class="fc" id="L24">        this.id = user.getId();</span>
-<span class="fc" id="L25">        this.username = user.getUsername();</span>
-<span class="fc" id="L26">        this.email = user.getEmail();</span>
-<span class="fc" id="L27">        this.password = user.getPassword();</span>
+<span class="fc" id="L25">    public UserDetailsImplements(User user) {</span>
 
-<span class="fc" id="L29">    }</span>
+<span class="fc" id="L27">        log.info(&quot;Création de l'objet UserDetails pour utilisateur ID: {}&quot;, user.getId());</span>
+<span class="fc" id="L28">        this.id = user.getId();</span>
+<span class="fc" id="L29">        this.username = user.getUsername();</span>
+<span class="fc" id="L30">        this.email = user.getEmail();</span>
+<span class="fc" id="L31">        this.password = user.getPassword();</span>
+
+<span class="fc" id="L33">    }</span>
 
     @Override
     public String getPassword() {
-<span class="fc" id="L33">        return password;</span>
+<span class="fc" id="L37">        return password;</span>
     }
 
     @Override
     public String getUsername() {
-<span class="fc" id="L38">        return username;</span>
+<span class="fc" id="L42">        return username;</span>
     }
 
     public String getEmail() {
-<span class="fc" id="L42">        return email;</span>
+<span class="fc" id="L46">        return email;</span>
     }
 
     public Long getId() {
-<span class="fc" id="L46">        return id;</span>
+<span class="fc" id="L50">        return id;</span>
     }
 
     @Override
     public Collection&lt;? extends GrantedAuthority&gt; getAuthorities() {
-<span class="fc" id="L51">        return List.of();</span>
+<span class="fc" id="L55">        log.info(&quot;Aucune autorisation définie pour utilisateur ID: {}&quot;, id);</span>
+<span class="fc" id="L56">        return List.of();</span>
     }
 
     @Override
     public boolean isAccountNonExpired() {
-<span class="fc" id="L56">        return true;</span>
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
 <span class="fc" id="L61">        return true;</span>
     }
 
     @Override
-    public boolean isEnabled() {
+    public boolean isCredentialsNonExpired() {
 <span class="fc" id="L66">        return true;</span>
+    }
+
+    @Override
+    public boolean isEnabled() {
+<span class="fc" id="L71">        return true;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -12,47 +12,51 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+<span class="fc" id="L20">@Slf4j</span>
 public class SecurityConfig {
 
         private final CustomUserDetailsService customUserDetailsService;
 
         @Bean
         public PasswordEncoder passwordEncoder() {
-<span class="fc" id="L25">                return new BCryptPasswordEncoder();</span>
+<span class="fc" id="L27">                log.info(&quot;Initialisation du mot de passe encoder&quot;);</span>
+<span class="fc" id="L28">                return new BCryptPasswordEncoder();</span>
         }
 
         @Bean
         public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder)
                         throws Exception {
+<span class="fc" id="L34">                log.info(&quot;Configuration de l'Authentication Manager&quot;);</span>
+<span class="fc" id="L35">                AuthenticationManagerBuilder authenticationManagerBuilder = http</span>
+<span class="fc" id="L36">                                .getSharedObject(AuthenticationManagerBuilder.class);</span>
+<span class="fc" id="L37">                authenticationManagerBuilder.userDetailsService(customUserDetailsService)</span>
+<span class="fc" id="L38">                                .passwordEncoder(passwordEncoder);</span>
 
-<span class="fc" id="L32">                AuthenticationManagerBuilder authenticationManagerBuilder = http</span>
-<span class="fc" id="L33">                                .getSharedObject(AuthenticationManagerBuilder.class);</span>
-<span class="fc" id="L34">                authenticationManagerBuilder.userDetailsService(customUserDetailsService)</span>
-<span class="fc" id="L35">                                .passwordEncoder(passwordEncoder);</span>
-
-<span class="fc" id="L37">                return authenticationManagerBuilder.build();</span>
+<span class="fc" id="L40">                return authenticationManagerBuilder.build();</span>
         }
 
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-<span class="fc" id="L43">                return http.authorizeHttpRequests(auth -&gt; auth.requestMatchers(&quot;/&quot;, &quot;/login&quot;, &quot;/register&quot;).permitAll()</span>
-<span class="fc" id="L44">                                .requestMatchers(&quot;/css/**&quot;).permitAll()</span>
-<span class="fc" id="L45">                                .requestMatchers(&quot;/add&quot;, &quot;/userConnections&quot;, &quot;/profil&quot;, &quot;/transaction&quot;, &quot;/pay&quot;)</span>
-<span class="fc" id="L46">                                .authenticated()</span>
-<span class="fc" id="L47">                                .anyRequest().authenticated())</span>
-<span class="fc" id="L48">                                .formLogin(form -&gt; form.loginPage(&quot;/login&quot;).defaultSuccessUrl(&quot;/transaction&quot;, true)</span>
-<span class="fc" id="L49">                                                .permitAll())</span>
-<span class="fc" id="L50">                                .logout(logout -&gt; logout</span>
-<span class="fc" id="L51">                                                .logoutRequestMatcher(new AntPathRequestMatcher(&quot;/logout&quot;, &quot;GET&quot;))</span>
-<span class="fc" id="L52">                                                .logoutSuccessUrl(&quot;/login?logout&quot;)</span>
+<span class="fc" id="L46">                log.info(&quot;Définition des règles de sécurité&quot;);</span>
+<span class="fc" id="L47">                return http.authorizeHttpRequests(auth -&gt; auth.requestMatchers(&quot;/&quot;, &quot;/login&quot;, &quot;/register&quot;).permitAll()</span>
+<span class="fc" id="L48">                                .requestMatchers(&quot;/css/**&quot;).permitAll()</span>
+<span class="fc" id="L49">                                .requestMatchers(&quot;/add&quot;, &quot;/userConnections&quot;, &quot;/profil&quot;, &quot;/transaction&quot;, &quot;/pay&quot;)</span>
+<span class="fc" id="L50">                                .authenticated()</span>
+<span class="fc" id="L51">                                .anyRequest().authenticated())</span>
+<span class="fc" id="L52">                                .formLogin(form -&gt; form.loginPage(&quot;/login&quot;).defaultSuccessUrl(&quot;/transaction&quot;, true)</span>
 <span class="fc" id="L53">                                                .permitAll())</span>
+<span class="fc" id="L54">                                .logout(logout -&gt; logout</span>
+<span class="fc" id="L55">                                                .logoutRequestMatcher(new AntPathRequestMatcher(&quot;/logout&quot;, &quot;GET&quot;))</span>
+<span class="fc" id="L56">                                                .logoutSuccessUrl(&quot;/login?logout&quot;)</span>
+<span class="fc" id="L57">                                                .permitAll())</span>
 
-<span class="fc" id="L55">                                .build();</span>
+<span class="fc" id="L59">                                .build();</span>
         }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -10,9 +10,11 @@ import com.pay_my_buddy.OC_P6.model.User;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Data
 @NoArgsConstructor
+@Slf4j
 public class UserDetailsImplements implements UserDetails {
 
     private Long id;
@@ -21,6 +23,8 @@ public class UserDetailsImplements implements UserDetails {
     private String password;
 
     public UserDetailsImplements(User user) {
+
+        log.info("Création de l'objet UserDetails pour utilisateur ID: {}", user.getId());
         this.id = user.getId();
         this.username = user.getUsername();
         this.email = user.getEmail();
@@ -48,6 +52,7 @@ public class UserDetailsImplements implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        log.info("Aucune autorisation définie pour utilisateur ID: {}", id);
         return List.of();
     }
 

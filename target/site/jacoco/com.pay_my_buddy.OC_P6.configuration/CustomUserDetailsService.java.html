@@ -9,21 +9,24 @@ import com.pay_my_buddy.OC_P6.model.User;
 import com.pay_my_buddy.OC_P6.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+<span class="fc" id="L16">@Slf4j</span>
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+<span class="fc" id="L23">        log.info(&quot;Recherche utilisateur avec email: {}&quot;, email);</span>
 
-<span class="fc" id="L22">        User user = userRepository.findByEmail(email)</span>
-<span class="fc" id="L23">                .orElseThrow(</span>
-<span class="fc" id="L24">                        () -&gt; new UsernameNotFoundException(&quot;L'utilisateur avec l'email &quot; + email + &quot; n'existe pas&quot;));</span>
-
-<span class="fc" id="L26">        return new UserDetailsImplements(user);</span>
+<span class="fc" id="L25">        User user = userRepository.findByEmail(email)</span>
+<span class="fc" id="L26">                .orElseThrow(</span>
+<span class="fc" id="L27">                        () -&gt; new UsernameNotFoundException(&quot;L'utilisateur avec l'email &quot; + email + &quot; n'existe pas&quot;));</span>
+<span class="fc" id="L28">        log.info(&quot;Utilisateur trouvé: {}&quot;, email);</span>
+<span class="fc" id="L29">        return new UserDetailsImplements(user);</span>
     }
 
 }

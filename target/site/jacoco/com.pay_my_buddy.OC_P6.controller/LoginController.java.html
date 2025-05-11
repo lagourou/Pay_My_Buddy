@@ -3,12 +3,16 @@
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
-<span class="fc" id="L7">public class LoginController {</span>
+<span class="fc" id="L9">@Slf4j</span>
+<span class="fc" id="L10">public class LoginController {</span>
 
     @GetMapping(&quot;/login&quot;)
     public String login() {
-<span class="fc" id="L11">        return &quot;login&quot;;</span>
+<span class="fc" id="L14">        log.info(&quot;Accès à la page de connexion&quot;);</span>
+<span class="fc" id="L15">        return &quot;login&quot;;</span>
     }
 
 }

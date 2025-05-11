@@ -8,22 +8,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@TestConfiguration
-@EnableWebSecurity
+@TestConfiguration // Indique que cette classe est une configuration spécifique aux tests
+@EnableWebSecurity // Active la sécurité web
 public class SecurityConfigTest {
 
+    // Initialise un encodeur de mot de passe avec BCrypt
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    // Configure la sécurité HTTP pour les tests
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // Nouvelle syntaxe fonctionnelle sans authorizeRequests() et permitAll()
         http
-                .csrf(csrf -> csrf.disable()) // Désactive la protection CSRF pour les tests
+                .csrf(csrf -> csrf.disable()) // Désactive CSRF pour éviter les blocages en test
                 .authorizeHttpRequests(authz -> authz
-                        .anyRequest().permitAll() // Permet l'accès à toutes les URL
+                        .anyRequest().permitAll() // Autorise l'accès à toutes les URLs sans restriction
                 );
         return http.build();
     }

@@ -14,42 +14,50 @@ import com.pay_my_buddy.OC_P6.repository.UserRepository;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
+<span class="fc" id="L21">@Slf4j</span>
 public class RegisterController {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @GetMapping(&quot;/register&quot;)
+    public String register(Model model) {
+
+<span class="fc" id="L30">        log.info(&quot;Accès à la page d'inscription&quot;);</span>
+<span class="fc" id="L31">        model.addAttribute(&quot;user&quot;, new RegisterRequestDTO());</span>
+<span class="fc" id="L32">        return &quot;register&quot;;</span>
+    }
+
     @PostMapping(&quot;/register&quot;)
     public String registerUser(@Valid @ModelAttribute(&quot;user&quot;) RegisterRequestDTO userDto, Model model,
             BindingResult result) {
 
-<span class="pc bpc" id="L29" title="1 of 2 branches missed.">        if (result.hasErrors()) {</span>
-<span class="nc" id="L30">            model.addAttribute(&quot;user&quot;, userDto);</span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="nc" id="L40">            log.warn(&quot;Erreur dans le formulaire d'inscription&quot;);</span>
+<span class="nc" id="L41">            model.addAttribute(&quot;user&quot;, userDto);</span>
+<span class="nc" id="L42">            return &quot;register&quot;;</span>
         }
 
-<span class="fc bfc" id="L33" title="All 2 branches covered.">        if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {</span>
 
-<span class="fc" id="L35">            model.addAttribute(&quot;error&quot;, &quot;Email déjà utilisé&quot;);</span>
-<span class="fc" id="L36">            return &quot;register&quot;;</span>
+<span class="fc" id="L47">            log.warn(&quot;Email déjà utilisé : {}&quot;, userDto.getEmail());</span>
+<span class="fc" id="L48">            model.addAttribute(&quot;error&quot;, &quot;Email déjà utilisé&quot;);</span>
+<span class="fc" id="L49">            return &quot;register&quot;;</span>
         }
-<span class="fc" id="L38">        User user = new User();</span>
-<span class="fc" id="L39">        user.setUsername(userDto.getUsername());</span>
-<span class="fc" id="L40">        user.setEmail(userDto.getEmail());</span>
-<span class="fc" id="L41">        user.setPassword(passwordEncoder.encode(userDto.getPassword()));</span>
-<span class="fc" id="L42">        userRepository.save(user);</span>
+<span class="fc" id="L51">        User user = new User();</span>
+<span class="fc" id="L52">        user.setUsername(userDto.getUsername());</span>
+<span class="fc" id="L53">        user.setEmail(userDto.getEmail());</span>
+<span class="fc" id="L54">        user.setPassword(passwordEncoder.encode(userDto.getPassword()));</span>
+<span class="fc" id="L55">        userRepository.save(user);</span>
 
-<span class="fc" id="L44">        model.addAttribute(&quot;success&quot;, &quot;Inscription réussie&quot;);</span>
-<span class="fc" id="L45">        return &quot;redirect:/login&quot;;</span>
+<span class="fc" id="L57">        log.info(&quot;Nouvel utilisateur inscrit : {}&quot;, userDto.getEmail());</span>
+<span class="fc" id="L58">        model.addAttribute(&quot;success&quot;, &quot;Inscription réussie&quot;);</span>
+<span class="fc" id="L59">        return &quot;redirect:/login&quot;;</span>
     }
 
-    @GetMapping(&quot;/register&quot;)
-    public String register(Model model) {
-
-<span class="fc" id="L51">        model.addAttribute(&quot;user&quot;, new RegisterRequestDTO());</span>
-<span class="fc" id="L52">        return &quot;register&quot;;</span>
-    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

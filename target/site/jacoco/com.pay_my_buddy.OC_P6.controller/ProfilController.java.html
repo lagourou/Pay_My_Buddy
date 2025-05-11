@@ -16,9 +16,11 @@ import com.pay_my_buddy.OC_P6.service.UserService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
+<span class="fc" id="L23">@Slf4j</span>
 public class ProfilController {
 
     private final UserService userService;
@@ -27,13 +29,14 @@ public class ProfilController {
     @GetMapping(&quot;/profil&quot;)
     public String profil(@AuthenticationPrincipal UserDetailsImplements userDetails, Model model) throws Exception {
 
-<span class="pc bpc" id="L30" title="1 of 4 branches missed.">        if (userDetails != null &amp;&amp; userDetails.getId() != null) {</span>
-<span class="fc" id="L31">            RegisterRequestDTO userForm = userMapper.toRegisterRequestDTO(userService.getUserById(userDetails.getId()));</span>
-<span class="fc" id="L32">            model.addAttribute(&quot;user&quot;, userForm);</span>
-<span class="fc" id="L33">        } else {</span>
-<span class="fc" id="L34">            return &quot;redirect:/login&quot;;</span>
+<span class="pc bpc" id="L32" title="1 of 4 branches missed.">        if (userDetails != null &amp;&amp; userDetails.getId() != null) {</span>
+<span class="fc" id="L33">            RegisterRequestDTO userForm = userMapper.toRegisterRequestDTO(userService.getUserById(userDetails.getId()));</span>
+<span class="fc" id="L34">            model.addAttribute(&quot;user&quot;, userForm);</span>
+<span class="fc" id="L35">        } else {</span>
+<span class="fc" id="L36">            log.warn(&quot;Utilisateur non authentifié, redirection vers la page de connexion.&quot;);</span>
+<span class="fc" id="L37">            return &quot;redirect:/login&quot;;</span>
         }
-<span class="fc" id="L36">        return &quot;profil&quot;;</span>
+<span class="fc" id="L39">        return &quot;profil&quot;;</span>
     }
 
     @PostMapping(&quot;/modify-profil&quot;)
@@ -41,13 +44,15 @@ public class ProfilController {
             @AuthenticationPrincipal UserDetailsImplements userDetails, RedirectAttributes redirectAttributes)
             throws Exception {
 
-<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (bindingResult.hasErrors()) {</span>
-<span class="fc" id="L45">            return &quot;profil&quot;;</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (bindingResult.hasErrors()) {</span>
+<span class="fc" id="L48">            log.warn(&quot;Erreur dans la modification du profil: {}&quot;, bindingResult.getAllErrors());</span>
+<span class="fc" id="L49">            return &quot;profil&quot;;</span>
         }
-<span class="fc" id="L47">        userService.updateUser(updatedUser, userDetails.getId());</span>
-<span class="fc" id="L48">        redirectAttributes.addFlashAttribute(&quot;success&quot;, &quot;Profil bien modifié&quot;);</span>
+<span class="fc" id="L51">        log.info(&quot;Modification du profil de l'utilisateur ID: {}&quot;, userDetails.getId());</span>
+<span class="fc" id="L52">        userService.updateUser(updatedUser, userDetails.getId());</span>
+<span class="fc" id="L53">        redirectAttributes.addFlashAttribute(&quot;success&quot;, &quot;Profil bien modifié&quot;);</span>
 
-<span class="fc" id="L50">        return &quot;redirect:/profil&quot;;</span>
+<span class="fc" id="L55">        return &quot;redirect:/profil&quot;;</span>
     }
 
 }

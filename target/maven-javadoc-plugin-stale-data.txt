@@ -8,7 +8,7 @@
 --release
 17
 -sourcepath
-'C:/Users/AGOUROU GUSTAVE/Downloads/Open Classroom/P6/OC_P6/src/main/java'
+'C:/Users/AGOUROU GUSTAVE/Downloads/Open Classroom/P6/OC_P6/src/main/java;C:/Users/AGOUROU GUSTAVE/Downloads/Open Classroom/P6/OC_P6/target/generated-sources/annotations'
 -author
 -bottom
 'Copyright &#169; 2025. All rights reserved.'
@@ -106,21 +106,22 @@ C:\Users\AGOUROU GUSTAVE\.m2\repository\com\fasterxml\jackson\core\jackson-core\
 C:\Users\AGOUROU GUSTAVE\.m2\repository\org\mapstruct\mapstruct\1.6.3\mapstruct-1.6.3.jar = 1746011687457
 C:\Users\AGOUROU GUSTAVE\.m2\repository\org\mapstruct\mapstruct-processor\1.6.3\mapstruct-processor-1.6.3.jar = 1746011713183
 C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\src\main\java = 1745313284894
-C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\allclasses-index.html = 1746943014384
-C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\allpackages-index.html = 1746943014431
-C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\element-list = 1746943012079
-C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\help-doc.html = 1746943014823
-C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\index-all.html = 1746943014807
-C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\index.html = 1746943014181
-C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\jquery-ui.overrides.css = 1746943015135
-C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\member-search-index.js = 1746943014587
-C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\module-search-index.js = 1746943014571
-C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\overview-summary.html = 1746943014823
-C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\overview-tree.html = 1746943014116
-C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\package-search-index.js = 1746943014587
-C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\script.js = 1746943014917
-C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\search.js = 1746943014917
-C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\serialized-form.html = 1746943012862
-C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\stylesheet.css = 1746943014901
-C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\tag-search-index.js = 1746943014587
-C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\type-search-index.js = 1746943014587
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\generated-sources\annotations = 1746938793798
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\allclasses-index.html = 1746987063538
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\allpackages-index.html = 1746987063553
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\element-list = 1746987060844
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\help-doc.html = 1746987063963
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\index-all.html = 1746987063912
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\index.html = 1746987063072
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\jquery-ui.overrides.css = 1746987064075
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\member-search-index.js = 1746987063569
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\module-search-index.js = 1746987063553
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\overview-summary.html = 1746987063947
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\overview-tree.html = 1746987063072
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\package-search-index.js = 1746987063553
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\script.js = 1746987063978
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\search.js = 1746987063996
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\serialized-form.html = 1746987061349
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\stylesheet.css = 1746987063963
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\tag-search-index.js = 1746987063569
+C:\Users\AGOUROU GUSTAVE\Downloads\Open Classroom\P6\OC_P6\target\site\apidocs\type-search-index.js = 1746987063553

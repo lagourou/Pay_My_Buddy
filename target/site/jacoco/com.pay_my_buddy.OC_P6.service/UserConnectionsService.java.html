@@ -15,6 +15,9 @@ import com.pay_my_buddy.OC_P6.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Service pour gérer les connexions entre utilisateurs.
+ */
 @Service
 @RequiredArgsConstructor
 public class UserConnectionsService {
@@ -22,44 +25,60 @@ public class UserConnectionsService {
     private final UserConnectionsRepository userConnectionsRepository;
     private final UserRepository userRepository;
 
+    /**
+     * Ajoute une nouvelle connexion entre deux utilisateurs.
+     *
+     * @param userId l'ID de l'utilisateur qui ajoute la connexion
+     * @param email  l'email de l'utilisateur à ajouter en relation
+     * @return l'objet UserConnections représentant la connexion
+     * @throws IllegalArgumentException si un utilisateur est introuvable ou si la
+     *                                  connexion est invalide
+     */
     @Transactional
     public UserConnections addConnections(Long userId, String email) {
 
-<span class="fc" id="L28">        User user = userRepository.findById(userId)</span>
-<span class="fc" id="L29">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Aucun utilisateur trouvé&quot;));</span>
+<span class="fc" id="L40">        User user = userRepository.findById(userId)</span>
+<span class="fc" id="L41">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Aucun utilisateur trouvé&quot;));</span>
 
-<span class="fc" id="L31">        User connectionUser = userRepository.findByEmail(email)</span>
-<span class="fc" id="L32">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Aucun utilisateur trouvé avec cet e-mail : &quot; + email));</span>
+<span class="fc" id="L43">        User connectionUser = userRepository.findByEmail(email)</span>
+<span class="fc" id="L44">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Aucun utilisateur trouvé avec cet e-mail : &quot; + email));</span>
 
-<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (user.getId().equals(connectionUser.getId())) {</span>
-<span class="fc" id="L35">            throw new IllegalArgumentException(&quot;Vous ne pouvez pas vous connecter à vous-même&quot;);</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if (user.getId().equals(connectionUser.getId())) {</span>
+<span class="fc" id="L47">            throw new IllegalArgumentException(&quot;Vous ne pouvez pas vous connecter à vous-même&quot;);</span>
         }
 
-<span class="fc" id="L38">        UserConnectionId userConnectionId = new UserConnectionId(user.getId(), connectionUser.getId());</span>
+<span class="fc" id="L50">        UserConnectionId userConnectionId = new UserConnectionId(user.getId(), connectionUser.getId());</span>
 
-<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (userConnectionsRepository.existsByUserIdAndConnectionId(user.getId(), connectionUser.getId())) {</span>
-<span class="fc" id="L41">            throw new IllegalArgumentException(&quot;Cette connexion existe déjà&quot;);</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        if (userConnectionsRepository.existsByUserIdAndConnectionId(user.getId(), connectionUser.getId())) {</span>
+<span class="fc" id="L53">            throw new IllegalArgumentException(&quot;Cette connexion existe déjà&quot;);</span>
         }
 
-<span class="fc" id="L44">        UserConnections userConnections = new UserConnections();</span>
-<span class="fc" id="L45">        userConnections.setId(userConnectionId);</span>
-<span class="fc" id="L46">        userConnections.setUser(user);</span>
-<span class="fc" id="L47">        userConnections.setConnection(connectionUser);</span>
+<span class="fc" id="L56">        UserConnections userConnections = new UserConnections();</span>
+<span class="fc" id="L57">        userConnections.setId(userConnectionId);</span>
+<span class="fc" id="L58">        userConnections.setUser(user);</span>
+<span class="fc" id="L59">        userConnections.setConnection(connectionUser);</span>
 
-<span class="fc" id="L49">        return userConnectionsRepository.save(userConnections);</span>
+<span class="fc" id="L61">        return userConnectionsRepository.save(userConnections);</span>
     }
 
+    /**
+     * Récupère la liste des connexions d'un utilisateur.
+     *
+     * @param userId l'ID de l'utilisateur dont on veut récupérer les connexions
+     * @return une liste de DTO contenant les informations des connexions de
+     *         l'utilisateur
+     */
     @Transactional
     public List&lt;UserConnectionsResponseDTO&gt; getUserConnections(Long userId) {
 
-<span class="fc" id="L55">        List&lt;UserConnections&gt; connections = userConnectionsRepository.findConnectionsByUserId(userId);</span>
+<span class="fc" id="L74">        List&lt;UserConnections&gt; connections = userConnectionsRepository.findConnectionsByUserId(userId);</span>
 
-<span class="fc" id="L57">        return connections.stream()</span>
-<span class="fc" id="L58">                .map(connection -&gt; new UserConnectionsResponseDTO(</span>
-<span class="fc" id="L59">                        connection.getConnection().getId(),</span>
-<span class="fc" id="L60">                        connection.getConnection().getUsername(),</span>
-<span class="fc" id="L61">                        connection.getConnection().getEmail()))</span>
-<span class="fc" id="L62">                .collect(Collectors.toList());</span>
+<span class="fc" id="L76">        return connections.stream()</span>
+<span class="fc" id="L77">                .map(connection -&gt; new UserConnectionsResponseDTO(</span>
+<span class="fc" id="L78">                        connection.getConnection().getId(),</span>
+<span class="fc" id="L79">                        connection.getConnection().getUsername(),</span>
+<span class="fc" id="L80">                        connection.getConnection().getEmail()))</span>
+<span class="fc" id="L81">                .collect(Collectors.toList());</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

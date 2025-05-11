@@ -16,9 +16,11 @@ import com.pay_my_buddy.OC_P6.service.UserService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class ProfilController {
 
     private final UserService userService;
@@ -31,6 +33,7 @@ public class ProfilController {
             RegisterRequestDTO userForm = userMapper.toRegisterRequestDTO(userService.getUserById(userDetails.getId()));
             model.addAttribute("user", userForm);
         } else {
+            log.warn("Utilisateur non authentifié, redirection vers la page de connexion.");
             return "redirect:/login";
         }
         return "profil";
@@ -42,8 +45,10 @@ public class ProfilController {
             throws Exception {
 
         if (bindingResult.hasErrors()) {
+            log.warn("Erreur dans la modification du profil: {}", bindingResult.getAllErrors());
             return "profil";
         }
+        log.info("Modification du profil de l'utilisateur ID: {}", userDetails.getId());
         userService.updateUser(updatedUser, userDetails.getId());
         redirectAttributes.addFlashAttribute("success", "Profil bien modifié");
 

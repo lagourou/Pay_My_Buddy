@@ -17,9 +17,11 @@ import com.pay_my_buddy.OC_P6.service.UserConnectionsService;
 import com.pay_my_buddy.OC_P6.service.UserService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class TransactionController {
 
     private final UserService userService;
@@ -31,6 +33,7 @@ public class TransactionController {
             @ModelAttribute TransactionRequestDTO transactionRequest,
             @ModelAttribute AccountBalanceRequestDTO balanceRequest) throws Exception {
 
+        log.info("Accès à la page des transactions");
         model.addAttribute("balanceResponse", balanceRequest);
         model.addAttribute("transactionResponse", transactionRequest);
         model.addAttribute("friends", userConnectionsService.getUserConnections(userDetails.getId()));
@@ -46,11 +49,13 @@ public class TransactionController {
             @AuthenticationPrincipal UserDetailsImplements userDetails, RedirectAttributes redirectAttributes) {
 
         try {
+            log.info("Paiement en cours pour {}", transactionRequest.getEmail());
             transactionService.addNewTransaction(userDetails.getId(), transactionRequest.getEmail(),
                     transactionRequest.getAmount(), transactionRequest.getDescription());
 
             redirectAttributes.addFlashAttribute("success", "Paiement réussi");
         } catch (IllegalArgumentException e) {
+            log.warn("Échec du paiement : {}", e.getMessage());
             redirectAttributes.addFlashAttribute("error", "Erreur : " + e.getMessage());
         }
         return "redirect:/transaction";
@@ -63,6 +68,8 @@ public class TransactionController {
 
         User user = userService.getUserByEmail(userDetails.getEmail());
         if (user != null) {
+
+            log.info("Ajout de {} à la balance de l'utilisateur {}", balanceRequest.getAmount(), user.getEmail());
             userService.addBalance(user, balanceRequest.getAmount());
         }
 

@@ -17,9 +17,11 @@ import com.pay_my_buddy.OC_P6.service.UserConnectionsService;
 import com.pay_my_buddy.OC_P6.service.UserService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
+<span class="fc" id="L24">@Slf4j</span>
 public class TransactionController {
 
     private final UserService userService;
@@ -31,14 +33,15 @@ public class TransactionController {
             @ModelAttribute TransactionRequestDTO transactionRequest,
             @ModelAttribute AccountBalanceRequestDTO balanceRequest) throws Exception {
 
-<span class="nc" id="L34">        model.addAttribute(&quot;balanceResponse&quot;, balanceRequest);</span>
-<span class="nc" id="L35">        model.addAttribute(&quot;transactionResponse&quot;, transactionRequest);</span>
-<span class="nc" id="L36">        model.addAttribute(&quot;friends&quot;, userConnectionsService.getUserConnections(userDetails.getId()));</span>
-<span class="nc" id="L37">        model.addAttribute(&quot;transactionsList&quot;, transactionService.getUserTransactionHistory(userDetails.getId()));</span>
-<span class="nc" id="L38">        model.addAttribute(&quot;userBalance&quot;, userService.getUserById(userDetails.getId()).getAccountBalance());</span>
-<span class="nc" id="L39">        model.addAttribute(&quot;transactionRequest&quot;, new TransactionRequestDTO());</span>
+<span class="nc" id="L36">        log.info(&quot;Accès à la page des transactions&quot;);</span>
+<span class="nc" id="L37">        model.addAttribute(&quot;balanceResponse&quot;, balanceRequest);</span>
+<span class="nc" id="L38">        model.addAttribute(&quot;transactionResponse&quot;, transactionRequest);</span>
+<span class="nc" id="L39">        model.addAttribute(&quot;friends&quot;, userConnectionsService.getUserConnections(userDetails.getId()));</span>
+<span class="nc" id="L40">        model.addAttribute(&quot;transactionsList&quot;, transactionService.getUserTransactionHistory(userDetails.getId()));</span>
+<span class="nc" id="L41">        model.addAttribute(&quot;userBalance&quot;, userService.getUserById(userDetails.getId()).getAccountBalance());</span>
+<span class="nc" id="L42">        model.addAttribute(&quot;transactionRequest&quot;, new TransactionRequestDTO());</span>
 
-<span class="nc" id="L41">        return &quot;transaction&quot;;</span>
+<span class="nc" id="L44">        return &quot;transaction&quot;;</span>
     }
 
     @PostMapping(&quot;/pay&quot;)
@@ -46,14 +49,16 @@ public class TransactionController {
             @AuthenticationPrincipal UserDetailsImplements userDetails, RedirectAttributes redirectAttributes) {
 
         try {
-<span class="fc" id="L49">            transactionService.addNewTransaction(userDetails.getId(), transactionRequest.getEmail(),</span>
-<span class="fc" id="L50">                    transactionRequest.getAmount(), transactionRequest.getDescription());</span>
+<span class="fc" id="L52">            log.info(&quot;Paiement en cours pour {}&quot;, transactionRequest.getEmail());</span>
+<span class="fc" id="L53">            transactionService.addNewTransaction(userDetails.getId(), transactionRequest.getEmail(),</span>
+<span class="fc" id="L54">                    transactionRequest.getAmount(), transactionRequest.getDescription());</span>
 
-<span class="fc" id="L52">            redirectAttributes.addFlashAttribute(&quot;success&quot;, &quot;Paiement réussi&quot;);</span>
-<span class="pc" id="L53">        } catch (IllegalArgumentException e) {</span>
-<span class="nc" id="L54">            redirectAttributes.addFlashAttribute(&quot;error&quot;, &quot;Erreur : &quot; + e.getMessage());</span>
+<span class="fc" id="L56">            redirectAttributes.addFlashAttribute(&quot;success&quot;, &quot;Paiement réussi&quot;);</span>
+<span class="pc" id="L57">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L58">            log.warn(&quot;Échec du paiement : {}&quot;, e.getMessage());</span>
+<span class="nc" id="L59">            redirectAttributes.addFlashAttribute(&quot;error&quot;, &quot;Erreur : &quot; + e.getMessage());</span>
         }
-<span class="fc" id="L56">        return &quot;redirect:/transaction&quot;;</span>
+<span class="fc" id="L61">        return &quot;redirect:/transaction&quot;;</span>
     }
 
     @PostMapping(&quot;/payment&quot;)
@@ -61,14 +66,16 @@ public class TransactionController {
             @AuthenticationPrincipal UserDetailsImplements userDetails, RedirectAttributes redirectAttributes)
             throws Exception {
 
-<span class="nc" id="L64">        User user = userService.getUserByEmail(userDetails.getEmail());</span>
-<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (user != null) {</span>
-<span class="nc" id="L66">            userService.addBalance(user, balanceRequest.getAmount());</span>
+<span class="nc" id="L69">        User user = userService.getUserByEmail(userDetails.getEmail());</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        if (user != null) {</span>
+
+<span class="nc" id="L72">            log.info(&quot;Ajout de {} à la balance de l'utilisateur {}&quot;, balanceRequest.getAmount(), user.getEmail());</span>
+<span class="nc" id="L73">            userService.addBalance(user, balanceRequest.getAmount());</span>
         }
 
-<span class="nc" id="L69">        redirectAttributes.addFlashAttribute(&quot;success&quot;, &quot;Dépôt réussi&quot;);</span>
+<span class="nc" id="L76">        redirectAttributes.addFlashAttribute(&quot;success&quot;, &quot;Dépôt réussi&quot;);</span>
 
-<span class="nc" id="L71">        return &quot;redirect:/transaction&quot;;</span>
+<span class="nc" id="L78">        return &quot;redirect:/transaction&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -53,18 +53,20 @@ class UserServiceTest {
         user.setUsername("Laurent");
         user.setEmail("laurent@example.com");
         user.setAccountBalance(BigDecimal.valueOf(100));
-        user.setFriends(new HashSet<>()); // ✅ Ajout de l'initialisation
+        user.setFriends(new HashSet<>());
 
         friend = new User();
         friend.setId(2L);
         friend.setUsername("Jean");
         friend.setEmail("jean@example.com");
         friend.setAccountBalance(BigDecimal.valueOf(50));
-        friend.setFriends(new HashSet<>()); // ✅ Ajout de l'initialisation
+        friend.setFriends(new HashSet<>());
     }
 
     @Test
     void testGetUserByIdSuccess() throws EntityNotFoundException {
+
+        // Vérifie que l'utilisateur est correctement récupéré par son ID
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
         User foundUser = userService.getUserById(1L);
@@ -75,6 +77,8 @@ class UserServiceTest {
 
     @Test
     void testGetUserByIdNotFound() {
+
+        // Vérifie que l'exception est levée si l'utilisateur est introuvable
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
         EntityNotFoundException exception = assertThrows(EntityNotFoundException.class,
@@ -84,6 +88,8 @@ class UserServiceTest {
 
     @Test
     void testSaveNewUser() {
+
+        // Simule l'encodage du mot de passe avant sauvegarde
         user.setPassword("plainPassword");
         when(passwordEncoder.encode("plainPassword")).thenReturn("hashedPassword");
 
@@ -95,6 +101,8 @@ class UserServiceTest {
 
     @Test
     void testAddFriendSuccess() throws FriendAlreadyExistsException {
+
+        // Vérifie qu'un utilisateur peut ajouter un ami
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(userRepository.findById(2L)).thenReturn(Optional.of(friend));
 
@@ -107,6 +115,8 @@ class UserServiceTest {
 
     @Test
     void testAddFriendAlreadyExists() {
+
+        // Vérifie qu'on ne peut pas ajouter un ami déjà existant
         user.getFriends().add(friend);
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
@@ -119,6 +129,8 @@ class UserServiceTest {
 
     @Test
     void testUpdateBalanceSuccess() throws InsufficientBalanceException, SelfTransferredAmountException {
+
+        // Vérifie qu'une mise à jour du solde entre utilisateurs fonctionne
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(userRepository.findById(2L)).thenReturn(Optional.of(friend));
 
@@ -132,6 +144,8 @@ class UserServiceTest {
 
     @Test
     void testUpdateBalanceInsufficientFunds() {
+
+        // Vérifie qu'une transaction échoue si le solde est insuffisant
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(userRepository.findById(2L)).thenReturn(Optional.of(friend));
 
@@ -143,6 +157,8 @@ class UserServiceTest {
 
     @Test
     void testUpdateBalanceToSelf() {
+
+        // Vérifie qu'un utilisateur ne peut pas transférer de l'argent à lui-même
         SelfTransferredAmountException exception = assertThrows(SelfTransferredAmountException.class,
                 () -> userService.updateBalance(user, user, BigDecimal.valueOf(20)));
         assertNotNull(exception.getMessage());
@@ -150,6 +166,8 @@ class UserServiceTest {
 
     @Test
     void testAddBalanceSuccess() throws InsufficientBalanceException {
+
+        // Vérifie qu'un utilisateur peut ajouter des fonds à son compte
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
         userService.addBalance(user, BigDecimal.valueOf(50));
@@ -160,6 +178,8 @@ class UserServiceTest {
 
     @Test
     void testAddBalanceNegativeAmount() {
+
+        // Vérifie qu'un montant négatif ne peut pas être ajouté au compte
         InsufficientBalanceException exception = assertThrows(InsufficientBalanceException.class,
                 () -> userService.addBalance(user, BigDecimal.valueOf(-10)));
         assertNotNull(exception.getMessage());
@@ -167,6 +187,8 @@ class UserServiceTest {
 
     @Test
     void testGetUserByEmailSuccess() throws EntityNotFoundException {
+
+        // Vérifie que l'utilisateur est correctement récupéré par son email
         when(userRepository.findByEmail("laurent@example.com")).thenReturn(Optional.of(user));
 
         User foundUser = userService.getUserByEmail("laurent@example.com");
@@ -177,9 +199,11 @@ class UserServiceTest {
 
     @Test
     void testGetUserByEmailNotFound() {
+
+        // Vérifie qu'une exception est levée si l'utilisateur n'est pas trouvé
         when(userRepository.findByEmail("unknown@example.com")).thenReturn(Optional.empty());
 
-        UserNotFoundException exception = assertThrows(UserNotFoundException.class, // ✅ Utilise la bonne exception
+        UserNotFoundException exception = assertThrows(UserNotFoundException.class,
                 () -> userService.getUserByEmail("unknown@example.com"));
 
         assertEquals("Utilisateur introuvable", exception.getMessage());
@@ -187,12 +211,16 @@ class UserServiceTest {
 
     @Test
     void testSaveUser() {
+
+        // Vérifie que l'utilisateur est correctement sauvegardé
         userService.saveUser(user);
         verify(userRepository, times(1)).save(user);
     }
 
     @Test
     void testUpdateUserSuccess() throws Exception {
+
+        // Vérifie qu'un utilisateur peut être mis à jour correctement
         RegisterRequestDTO updatedUser = new RegisterRequestDTO();
         updatedUser.setUsername("LaurentUpdated");
         updatedUser.setEmail("laurent.updated@example.com");
@@ -208,6 +236,8 @@ class UserServiceTest {
 
     @Test
     void testUpdateUserNotFound() {
+
+        // Vérifie qu'un utilisateur peut être mis à jour correctement
         RegisterRequestDTO updatedUser = new RegisterRequestDTO();
         updatedUser.setUsername("LaurentUpdated");
 
@@ -216,41 +246,49 @@ class UserServiceTest {
         EntityNotFoundException exception = assertThrows(EntityNotFoundException.class,
                 () -> userService.updateUser(updatedUser, 1L));
 
-        assertEquals("Utilisateur introuvable", exception.getMessage()); // ✅ Corrigé
+        assertEquals("Utilisateur introuvable", exception.getMessage());
     }
 
     @Test
     void testDeleteFriendNotExisting() {
+
+        // Vérifie qu'une exception est levée si l'ami à supprimer n'existe pas
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(userRepository.findById(2L)).thenReturn(Optional.of(friend));
 
         ContactAlreadyExistException exception = assertThrows(ContactAlreadyExistException.class,
                 () -> userService.deleteFriend(1L, 2L));
 
-        assertEquals("La relation n'existe pas", exception.getMessage()); // ✅ Alignement avec `UserService`
+        assertEquals("La relation n'existe pas", exception.getMessage());
     }
 
     @Test
     void testGetFriendsUserNotFound() {
+
+        // Vérifie que l'exception est levée si l'utilisateur est introuvable lors de la
+        // récupération des amis
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
         UserNotFoundException exception = assertThrows(UserNotFoundException.class,
                 () -> userService.getFriends(1L));
 
-        assertEquals("Utilisateur introuvable", exception.getMessage()); // ✅ Correction du message attendu
+        assertEquals("Utilisateur introuvable", exception.getMessage());
     }
 
     @Test
     void testUpdateBalanceNegativeAmount() {
+
+        // Vérifie qu'un montant négatif ne peut pas être transféré
         InsufficientBalanceException exception = assertThrows(InsufficientBalanceException.class,
                 () -> userService.updateBalance(user, friend, BigDecimal.valueOf(-10)));
 
-        assertEquals("Le Montant doit être positive", exception.getMessage()); // ✅ Correction pour inclure la règle du
-                                                                               // montant positif
+        assertEquals("Le Montant doit être positive", exception.getMessage());
     }
 
     @Test
     void testDeleteFriendSuccess() throws ContactAlreadyExistException {
+
+        // Vérifie qu'une suppression d'ami fonctionne correctement
         user.getFriends().add(friend);
         friend.getFriends().add(user);
 
@@ -267,6 +305,8 @@ class UserServiceTest {
 
     @Test
     void testGetFriendsSuccess() throws UserNotFoundException {
+
+        // Vérifie que la liste des amis de l'utilisateur est correctement récupérée
         user.getFriends().add(friend);
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
