@@ -54,9 +54,8 @@ Les relations entre ces entités sont les suivantes :
 
 All project documentation is stored in the **documents** folder of the GitHub repository and is available online:
 
-- (liens) JaCoCo Reports: Shows code coverage
-- Maven Unit Test Reports: Results from test execution and compilation
-- Maven Integration Test Reports: Results from test execution and compilation
+- [**JaCoCo Reports**](https://github.com/lagourou/Pay_My_Buddy/blob/main/target/site/jacoco/index.html)target/site/jacoco/index.html: Shows code coverage
+- [**Surefire Reports**](https://github.com/lagourou/Pay_My_Buddy/blob/main/target/site/surefire-report.html):  Shows unit test
 - JavaDoc: API documentation
 
 The documentation is available online via the GitHub Pages site for this repository
@@ -80,22 +79,21 @@ mvn spring-boot:run
 - **5** Accéder à l'application via l'adresse : **http://localhost:8080**  
 
 # Tests
-**Tests Unitaires** : Le projet inclut des tests unitaires pour les contrôleurs, services et la sécurité
+**Tests Unitaires** : Le projet inclut des tests unitaires pour couvrir toute les couches de l'application
 
 Lancer les tests avec :  
 ```bash 
 mvn test
 ```
-Générer le rapport de couverture du code avec :   
+Générer le rapport (Jacoco) de couverture du code avec :   
 ```bash
 mvn jacoco:report
 ```
-Consulter les rapports qui sont dans **target/site/jacoco/**
-
-**Tests d'Intégration** : Les tests d'intégration assurent le bon fonctionnement global de l'application et peuvent être exécutés avec : 
+Générer le rapport (Surefire) d'affichage des tests unitaires avec : 
 ```bash
-mvn verify
+mvn surefire-report:report
 ```
+Consulter les rapports qui sont dans **target/site/jacoco/** et **target/site/**
 
 # Sécurité
 L'application utilise Spring Security pour gérer l'authentification et l'autorisation des utilisateurs. 
