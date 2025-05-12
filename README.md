@@ -121,7 +121,7 @@ L'application possède un gestionnaire d'exceptions centralisé qui capte et tra
 # Architecture des répertoires
 - **src/main/java** : Répertoire du code source principal
 - **src/main/resources** : Ressources de l'application(templates, CSS, application.properties et scripts SQL)
-- **src/test/java** : Tests unitaires et d'intégration
+- **src/test/java** : Tests unitaires
 
 # Accessibilité et Conformité WCAG  
 
