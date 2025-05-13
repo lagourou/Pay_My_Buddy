@@ -22,5 +22,4 @@ public interface TransactionMapper {
     @Mapping(target = "receiver.id", source = "receiverId")
     Transaction toTransaction(TransactionResponseDTO transactionDTO);
 
-
 }

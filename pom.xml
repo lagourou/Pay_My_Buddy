@@ -187,6 +187,9 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<show>private</show>
+				</configuration>
 			</plugin>
 
 		</plugins>

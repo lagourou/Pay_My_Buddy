@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
-    date = &quot;2025-05-11T17:41:09+0200&quot;,
+    date = &quot;2025-05-13T16:03:58+0200&quot;,
     comments = &quot;version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.v20250508-0718, environment: Java 21.0.7 (Eclipse Adoptium)&quot;
 )
 @Component
@@ -58,56 +58,56 @@ import org.springframework.stereotype.Component;
 
     private Long transactionSenderId(Transaction transaction) {
 <span class="fc" id="L60">        User sender = transaction.getSender();</span>
-<span class="pc bpc" id="L61" title="1 of 2 branches missed.">        if ( sender == null ) {</span>
-<span class="nc" id="L62">            return null;</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if ( sender == null ) {</span>
+<span class="fc" id="L62">            return null;</span>
         }
 <span class="fc" id="L64">        return sender.getId();</span>
     }
 
     private String transactionSenderUsername(Transaction transaction) {
 <span class="fc" id="L68">        User sender = transaction.getSender();</span>
-<span class="pc bpc" id="L69" title="1 of 2 branches missed.">        if ( sender == null ) {</span>
-<span class="nc" id="L70">            return null;</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        if ( sender == null ) {</span>
+<span class="fc" id="L70">            return null;</span>
         }
 <span class="fc" id="L72">        return sender.getUsername();</span>
     }
 
     private String transactionSenderEmail(Transaction transaction) {
 <span class="fc" id="L76">        User sender = transaction.getSender();</span>
-<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        if ( sender == null ) {</span>
-<span class="nc" id="L78">            return null;</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        if ( sender == null ) {</span>
+<span class="fc" id="L78">            return null;</span>
         }
 <span class="fc" id="L80">        return sender.getEmail();</span>
     }
 
     private BigDecimal transactionSenderAccountBalance(Transaction transaction) {
 <span class="fc" id="L84">        User sender = transaction.getSender();</span>
-<span class="pc bpc" id="L85" title="1 of 2 branches missed.">        if ( sender == null ) {</span>
-<span class="nc" id="L86">            return null;</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        if ( sender == null ) {</span>
+<span class="fc" id="L86">            return null;</span>
         }
 <span class="fc" id="L88">        return sender.getAccountBalance();</span>
     }
 
     private Long transactionReceiverId(Transaction transaction) {
 <span class="fc" id="L92">        User receiver = transaction.getReceiver();</span>
-<span class="pc bpc" id="L93" title="1 of 2 branches missed.">        if ( receiver == null ) {</span>
-<span class="nc" id="L94">            return null;</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        if ( receiver == null ) {</span>
+<span class="fc" id="L94">            return null;</span>
         }
 <span class="fc" id="L96">        return receiver.getId();</span>
     }
 
     private String transactionReceiverUsername(Transaction transaction) {
 <span class="fc" id="L100">        User receiver = transaction.getReceiver();</span>
-<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        if ( receiver == null ) {</span>
-<span class="nc" id="L102">            return null;</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        if ( receiver == null ) {</span>
+<span class="fc" id="L102">            return null;</span>
         }
 <span class="fc" id="L104">        return receiver.getUsername();</span>
     }
 
     private String transactionReceiverEmail(Transaction transaction) {
 <span class="fc" id="L108">        User receiver = transaction.getReceiver();</span>
-<span class="pc bpc" id="L109" title="1 of 2 branches missed.">        if ( receiver == null ) {</span>
-<span class="nc" id="L110">            return null;</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        if ( receiver == null ) {</span>
+<span class="fc" id="L110">            return null;</span>
         }
 <span class="fc" id="L112">        return receiver.getEmail();</span>
     }

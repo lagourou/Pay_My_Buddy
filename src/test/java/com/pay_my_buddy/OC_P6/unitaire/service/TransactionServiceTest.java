@@ -1,18 +1,22 @@
 package com.pay_my_buddy.OC_P6.unitaire.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
-
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.Arrays;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.any;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 
 import com.pay_my_buddy.OC_P6.dto.TransactionResponseDTO;
@@ -156,11 +160,52 @@ class TransactionServiceTest {
     @Test
     void testFeedAccountNegativeAmount() {
 
-        // Vérifie qu'une recharge avec un montant négatif est rejetée
+        // Vérifie qu'un montant négatif est rejetée
         when(userRepository.findById(1L)).thenReturn(Optional.of(sender));
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> transactionService.feedAccount(1L, BigDecimal.valueOf(-10), "Recharge"));
         assertEquals("Le montant du dépôt doit être supérieur à zéro.", exception.getMessage());
     }
+
+    @Test
+    void testAddNewTransaction_UserNotFound() {
+
+        // Simule le cas où l'expéditeur n'existe pas en base de données
+        when(userRepository.findById(1L)).thenReturn(Optional.empty());
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> transactionService.addNewTransaction(1L, "jean@example.com", BigDecimal.valueOf(20), "Paiement"));
+
+        assertEquals("L'expéditeur n'existe pas", exception.getMessage());
+    }
+
+    @Test
+    void testGetUserTransactionHistory_EmptyList() {
+
+        // Simule le cas où l'utilisateur existe dans la base de données
+        when(userRepository.findById(1L)).thenReturn(Optional.of(sender));
+
+        // Simule le fait que l'utilisateur n'a envoyé ni reçu de transactions
+        when(transactionRepository.findBySenderId(1L)).thenReturn(Arrays.asList());
+        when(transactionRepository.findByReceiverId(1L)).thenReturn(Arrays.asList());
+
+        List<TransactionResponseDTO> result = transactionService.getUserTransactionHistory(1L);
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void testFeedAccount_UserNotFound() {
+
+        // Simule le cas où l'utilisateur recherché n'existe pas en base de données
+        when(userRepository.findById(1L)).thenReturn(Optional.empty());
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> transactionService.feedAccount(1L, BigDecimal.valueOf(50), "Recharge"));
+
+        assertEquals("L'utilisateur n'existe pas", exception.getMessage());
+    }
+
 }

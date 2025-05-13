@@ -146,7 +146,8 @@ class UserConnectionsServiceTest {
     @Test
     void testGetUserConnectionsEmpty() {
 
-         // Vérifie que la liste des connexions utilisateur est vide si aucune connexion n'existe
+        // Vérifie que la liste des connexions utilisateur est vide si aucune connexion
+        // n'existe
         when(userConnectionsRepository.findConnectionsByUserId(1L))
                 .thenReturn(Arrays.asList());
 
