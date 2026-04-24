@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-04-23T21:57:46+0200",
-    comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.46.0.v20260416-1330, environment: Java 21.0.10 (Eclipse Adoptium)"
+    date = "2026-04-24T16:51:49+0200",
+    comments = "version: 1.6.3, compiler: javac, environment: Java 17.0.18 (Microsoft)"
 )
 @Component
 public class TransactionMapperImpl implements TransactionMapper {
@@ -30,9 +30,9 @@ public class TransactionMapperImpl implements TransactionMapper {
         transactionResponseDTO.setReceiverId( transactionReceiverId( transaction ) );
         transactionResponseDTO.setReceiverUsername( transactionReceiverUsername( transaction ) );
         transactionResponseDTO.setReceiverEmail( transactionReceiverEmail( transaction ) );
-        transactionResponseDTO.setAmount( transaction.getAmount() );
-        transactionResponseDTO.setDescription( transaction.getDescription() );
         transactionResponseDTO.setId( transaction.getId() );
+        transactionResponseDTO.setDescription( transaction.getDescription() );
+        transactionResponseDTO.setAmount( transaction.getAmount() );
         transactionResponseDTO.setTransactionDate( transaction.getTransactionDate() );
 
         return transactionResponseDTO;
@@ -48,9 +48,9 @@ public class TransactionMapperImpl implements TransactionMapper {
 
         transaction.setSender( transactionResponseDTOToUser( transactionDTO ) );
         transaction.setReceiver( transactionResponseDTOToUser1( transactionDTO ) );
-        transaction.setAmount( transactionDTO.getAmount() );
-        transaction.setDescription( transactionDTO.getDescription() );
         transaction.setId( transactionDTO.getId() );
+        transaction.setDescription( transactionDTO.getDescription() );
+        transaction.setAmount( transactionDTO.getAmount() );
         transaction.setTransactionDate( transactionDTO.getTransactionDate() );
 
         return transaction;

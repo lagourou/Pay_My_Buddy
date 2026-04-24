@@ -52,7 +52,7 @@ class TransactionServiceTest {
 
         // Initialise un expéditeur avec un solde de 100
         sender = new User();
-        sender.setId(1);
+        sender.setId(1L);
         sender.setUsername("Laurent");
         sender.setEmail("laurent@example.com");
         sender.setAccountBalance(BigDecimal.valueOf(100));
@@ -74,14 +74,14 @@ class TransactionServiceTest {
     void testAddNewTransactionSuccess() {
 
         // Simule l'ajout d'une transaction réussie
-        when(userRepository.findById(1)).thenReturn(Optional.of(sender));
+        when(userRepository.findById(1L)).thenReturn(Optional.of(sender));
         when(userRepository.findByEmail("jean@example.com")).thenReturn(Optional.of(receiver));
         when(transactionRepository.save(any(Transaction.class))).thenReturn(transaction);
         when(transactionMapper.toTransactionResponseDTO(any(Transaction.class)))
                 .thenReturn(new TransactionResponseDTO());
 
         // Vérifie que la transaction est ajoutée correctement
-        TransactionResponseDTO result = transactionService.addNewTransaction(1, "jean@example.com",
+        TransactionResponseDTO result = transactionService.addNewTransaction(1L, "jean@example.com",
                 BigDecimal.valueOf(20), "Paiement");
 
         assertNotNull(result);
@@ -94,11 +94,11 @@ class TransactionServiceTest {
         // Simule un solde insuffisant
         sender.setAccountBalance(BigDecimal.valueOf(5));
 
-        when(userRepository.findById(1)).thenReturn(Optional.of(sender));
+        when(userRepository.findById(1L)).thenReturn(Optional.of(sender));
         when(userRepository.findByEmail("jean@example.com")).thenReturn(Optional.of(receiver));
         // Vérifie que l'exception est levée
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> transactionService.addNewTransaction(1, "jean@example.com", BigDecimal.valueOf(20), "Paiement"));
+                () -> transactionService.addNewTransaction(1L, "jean@example.com", BigDecimal.valueOf(20), "Paiement"));
         assertEquals("Le solde de l'expéditeur est insuffisant.", exception.getMessage());
     }
 
@@ -106,11 +106,11 @@ class TransactionServiceTest {
     void testAddNewTransactionNegativeAmount() {
 
         // Vérifie qu'une transaction avec un montant négatif est rejetée
-        when(userRepository.findById(1)).thenReturn(Optional.of(sender));
+        when(userRepository.findById(1L)).thenReturn(Optional.of(sender));
         when(userRepository.findByEmail("jean@example.com")).thenReturn(Optional.of(receiver));
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> transactionService.addNewTransaction(1, "jean@example.com", BigDecimal.valueOf(-10),
+                () -> transactionService.addNewTransaction(1L, "jean@example.com", BigDecimal.valueOf(-10),
                         "Paiement"));
         assertEquals("Le montant doit être supérieur à zéro.", exception.getMessage());
     }
@@ -119,13 +119,13 @@ class TransactionServiceTest {
     void testGetUserTransactionHistorySuccess() {
 
         // Simule la récupération de l'historique des transactions
-        when(userRepository.findById(1)).thenReturn(Optional.of(sender));
-        when(transactionRepository.findBySenderId(1)).thenReturn(Arrays.asList(transaction));
-        when(transactionRepository.findByReceiverId(1)).thenReturn(Arrays.asList());
+        when(userRepository.findById(1L)).thenReturn(Optional.of(sender));
+        when(transactionRepository.findBySenderId(1L)).thenReturn(Arrays.asList(transaction));
+        when(transactionRepository.findByReceiverId(1L)).thenReturn(Arrays.asList());
         when(transactionMapper.toTransactionResponseDTO(any(Transaction.class)))
                 .thenReturn(new TransactionResponseDTO());
 
-        List<TransactionResponseDTO> result = transactionService.getUserTransactionHistory(1);
+        List<TransactionResponseDTO> result = transactionService.getUserTransactionHistory(1L);
 
         assertNotNull(result);
         assertEquals(1, result.size());
@@ -135,10 +135,10 @@ class TransactionServiceTest {
     void testGetUserTransactionHistoryUserNotFound() {
 
         // Vérifie qu'une exception est levée si l'utilisateur n'existe pas
-        when(userRepository.findById(1)).thenReturn(Optional.empty());
+        when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> transactionService.getUserTransactionHistory(1));
+                () -> transactionService.getUserTransactionHistory(1L));
         assertEquals("L'utilisateur n'existe pas", exception.getMessage());
     }
 
@@ -146,12 +146,12 @@ class TransactionServiceTest {
     void testFeedAccountSuccess() {
 
         // Simule une recharge de compte réussie
-        when(userRepository.findById(1)).thenReturn(Optional.of(sender));
+        when(userRepository.findById(1L)).thenReturn(Optional.of(sender));
         when(transactionRepository.save(any(Transaction.class))).thenReturn(transaction);
         when(transactionMapper.toTransactionResponseDTO(any(Transaction.class)))
                 .thenReturn(new TransactionResponseDTO());
 
-        TransactionResponseDTO result = transactionService.feedAccount(1, BigDecimal.valueOf(50), "Recharge");
+        TransactionResponseDTO result = transactionService.feedAccount(1L, BigDecimal.valueOf(50), "Recharge");
 
         assertNotNull(result);
         verify(transactionRepository, times(1)).save(any(Transaction.class));
@@ -172,10 +172,10 @@ class TransactionServiceTest {
     void testAddNewTransaction_UserNotFound() {
 
         // Simule le cas où l'expéditeur n'existe pas en base de données
-        when(userRepository.findById(1)).thenReturn(Optional.empty());
+        when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> transactionService.addNewTransaction(1, "jean@example.com", BigDecimal.valueOf(20), "Paiement"));
+                () -> transactionService.addNewTransaction(1L, "jean@example.com", BigDecimal.valueOf(20), "Paiement"));
 
         assertEquals("L'expéditeur n'existe pas", exception.getMessage());
     }
@@ -184,13 +184,13 @@ class TransactionServiceTest {
     void testGetUserTransactionHistory_EmptyList() {
 
         // Simule le cas où l'utilisateur existe dans la base de données
-        when(userRepository.findById(1)).thenReturn(Optional.of(sender));
+        when(userRepository.findById(1L)).thenReturn(Optional.of(sender));
 
         // Simule le fait que l'utilisateur n'a envoyé ni reçu de transactions
-        when(transactionRepository.findBySenderId(1)).thenReturn(Arrays.asList());
-        when(transactionRepository.findByReceiverId(1)).thenReturn(Arrays.asList());
+        when(transactionRepository.findBySenderId(1L)).thenReturn(Arrays.asList());
+        when(transactionRepository.findByReceiverId(1L)).thenReturn(Arrays.asList());
 
-        List<TransactionResponseDTO> result = transactionService.getUserTransactionHistory(1);
+        List<TransactionResponseDTO> result = transactionService.getUserTransactionHistory(1L);
 
         assertNotNull(result);
         assertTrue(result.isEmpty());
@@ -200,10 +200,10 @@ class TransactionServiceTest {
     void testFeedAccount_UserNotFound() {
 
         // Simule le cas où l'utilisateur recherché n'existe pas en base de données
-        when(userRepository.findById(1)).thenReturn(Optional.empty());
+        when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> transactionService.feedAccount(1, BigDecimal.valueOf(50), "Recharge"));
+                () -> transactionService.feedAccount(1L, BigDecimal.valueOf(50), "Recharge"));
 
         assertEquals("L'utilisateur n'existe pas", exception.getMessage());
     }
