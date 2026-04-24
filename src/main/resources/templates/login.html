@@ -9,7 +9,7 @@
   <body>
     <div class="cadre-login">
       <div class="header">
-        <button class="btn-pmb"><strong>Pay My Buddy</strong></button>
+        <button class="btn-pmb"><strong>StockMeat Solutions</strong></button>
       </div>
       <form th:action="@{/login}" method="post" class="login-form">
         <input
@@ -18,23 +18,27 @@
           name="username"
           placeholder="Mail"
           class="styled-input"
-          required />
+          required
+        />
         <input
           id="password"
           type="password"
           name="password"
           placeholder="Mot de passe"
           class="styled-input"
-          required />
-        <button type="submit" class="submit-login"><strong>Se
-            connecter</strong></button>
+          required
+        />
+        <button type="submit" class="submit-login">
+          <strong>Se connecter</strong>
+        </button>
       </form>
       <footer class="form-footer">
         <a href="/register" class="link">Créer un compte</a>
       </footer>
       <div class="alert-container">
-        <p th:if="${param.error}" class="alert-error">Identifiant/mot de passe
-          incorrect</p>
+        <p th:if="${param.error}" class="alert-error">
+          Identifiant/mot de passe incorrect
+        </p>
       </div>
     </div>
   </body>

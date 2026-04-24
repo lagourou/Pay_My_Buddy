@@ -8,17 +8,22 @@
   </head>
   <body>
     <div class="heading">
-      <span><strong>Pay My Buddy</strong></span>
+      <span><strong>StockMeat Solutions</strong></span>
       <nav>
         <strong>
-          <a th:href="@{/transaction}"
-            sec:authorize="isAuthenticated()">Transférer</a>
-          <a th:href="@{/profil}" sec:authorize="isAuthenticated()"
-            class="active">Profil</a>
-          <a th:href="@{/userConnections}"
-            sec:authorize="isAuthenticated()">Ajouter relation</a>
-          <a th:href="@{/logout}" sec:authorize="isAuthenticated()">Se
-            déconnecter</a>
+          <a th:href="@{/scan}" sec:authorize="isAuthenticated()">Scanner</a>
+          <a
+            th:href="@{/profil}"
+            sec:authorize="isAuthenticated()"
+            class="active"
+            >Profil</a
+          >
+          <a th:href="@{/userConnections}" sec:authorize="isAuthenticated()"
+            >Ajouter relation</a
+          >
+          <a th:href="@{/logout}" sec:authorize="isAuthenticated()"
+            >Se déconnecter</a
+          >
         </strong>
       </nav>
     </div>
@@ -26,7 +31,8 @@
       th:action="@{/modify-profil}"
       th:object="${user}"
       method="post"
-      class="form-modify">
+      class="form-modify"
+    >
       <div class="form-group">
         <label for="username">Username</label>
         <span class="at-symbol">@</span>
@@ -37,7 +43,8 @@
           class="input-username"
           th:field="*{username}"
           placeholder="@username"
-          required />
+          required
+        />
         <span class="arrow-username">></span>
       </div>
       <div class="form-group">
@@ -48,7 +55,8 @@
           id="email"
           th:field="*{email}"
           placeholder="nom@domain.com"
-          required />
+          required
+        />
         <span class="arrow">></span>
       </div>
       <div class="form-group">
@@ -59,17 +67,16 @@
           id="password"
           th:field="*{password}"
           placeholder="mot de passe"
-          required />
+          required
+        />
 
         <span class="arrow">></span>
       </div>
       <button type="submit" class="btn-modify">Modifier</button>
     </form>
     <div class="alert-container">
-      <p th:if="${error}" th:text="${error}"
-        class="alert-error"></p>
-      <p th:if="${success}" th:text="${success}"
-        class="alert-success"></p>
+      <p th:if="${error}" th:text="${error}" class="alert-error"></p>
+      <p th:if="${success}" th:text="${success}" class="alert-success"></p>
     </div>
   </body>
 </html>
