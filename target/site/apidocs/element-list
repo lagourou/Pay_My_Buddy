@@ -1,0 +1,9 @@
+com.pay_my_buddy.OC_P6
+com.pay_my_buddy.OC_P6.configuration
+com.pay_my_buddy.OC_P6.controller
+com.pay_my_buddy.OC_P6.dto
+com.pay_my_buddy.OC_P6.exception
+com.pay_my_buddy.OC_P6.mapper
+com.pay_my_buddy.OC_P6.model
+com.pay_my_buddy.OC_P6.repository
+com.pay_my_buddy.OC_P6.service
