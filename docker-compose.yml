@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+
+  mysqldb:
+    image: mysql:8
+    container_name: mysqldb
+    environment:
+      - MYSQL_ROOT_PASSWORD=TON_MDP_ROOT
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - backend
+
+  stockmeat-api:
+    build: /opt/stockmeat
+    container_name: stockmeat-api
+    env_file:
+      - /opt/stockmeat/.env
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysqldb
+    networks:
+      - backend
+
+  paymybuddy-api:
+    build: /opt/paymybuddy
+    container_name: paymybuddy-api
+    env_file:
+      - /opt/paymybuddy/.env
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysqldb
+    networks:
+      - backend
+
+networks:
+  backend:
+
+volumes:
+  mysql_data:
